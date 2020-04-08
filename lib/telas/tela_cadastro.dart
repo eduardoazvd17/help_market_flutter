@@ -15,21 +15,28 @@ class TelaCadastro extends StatelessWidget {
     var largura = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                // color: Colors.purple,
-                width: largura * 0.98,
-                height: altura * 0.82,
-                child: Card(
-                  elevation: 10,
+          color: Theme.of(context).primaryColor,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: largura * 0.98,
+                  height: altura * 0.82,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
@@ -99,13 +106,15 @@ class TelaCadastro extends StatelessWidget {
                         width: largura * 0.858,
                         texto: "Cancelar",
                         cor: Colors.red,
-                        funcao: () {},
+                        funcao: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
