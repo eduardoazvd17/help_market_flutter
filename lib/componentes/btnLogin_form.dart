@@ -4,17 +4,19 @@ class BtnLoginForm extends StatelessWidget {
   final String texto;
   final Color cor;
   final Function funcao;
-
+  final double width;
   //TODO: Alterar flatButton
 
   BtnLoginForm({
     this.texto = "LOGAR",
     this.cor = (Colors.indigo),
+    this.width,
     @required this.funcao,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       padding: EdgeInsets.only(
         left: 12,
         right: 12,
