@@ -17,7 +17,8 @@ class MainDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: <Widget>[
-          Padding(
+          Container(
+            color: ThemeData().primaryColor,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: Container(
               width: double.infinity,
