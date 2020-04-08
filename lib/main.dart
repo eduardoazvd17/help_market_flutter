@@ -5,6 +5,9 @@ void main() => runApp(ListaCompras());
 class ListaCompras extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(),
+    );
   }
 }
