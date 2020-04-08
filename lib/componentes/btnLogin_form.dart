@@ -7,7 +7,7 @@ class BtnLoginForm extends StatelessWidget {
   final double width;
 
   BtnLoginForm({
-    this.texto = "LOGAR",
+    this.texto = "Entrar",
     this.cor = (Colors.indigo),
     this.width,
     @required this.funcao,
