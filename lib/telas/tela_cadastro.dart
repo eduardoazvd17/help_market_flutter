@@ -23,6 +23,7 @@ class TelaCadastro extends StatelessWidget {
           width: double.infinity,
           color: Theme.of(context).primaryColor,
           child: Container(
+            margin: EdgeInsets.only(top: altura * 0.015),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
@@ -33,6 +34,7 @@ class TelaCadastro extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: altura * 0.01),
                 Container(
                   width: largura * 0.98,
                   height: altura * 0.82,

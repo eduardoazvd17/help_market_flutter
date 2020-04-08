@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/listTile_inkWell.dart';
+import 'package:lista_compras/componentes/item_drawer.dart';
 
 class MainDrawer extends StatelessWidget {
   //TODO: adicionar funcionalidade aos botoes do drawer.
@@ -45,19 +45,19 @@ class MainDrawer extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Divider(),
-                ListTileInkWell(
-                  icon: Icon(Icons.settings),
-                  text: "Configurações",
-                  function: () {},
+                ItemDrawer(
+                  icone: Icon(Icons.settings),
+                  titulo: "Ajustes da Conta",
+                  onTap: () {},
                 ),
                 Divider(),
-                ListTileInkWell(
-                  text: "Sobre-nós",
-                  function: () {},
+                ItemDrawer(
+                  titulo: "Sobre-nós",
+                  onTap: () {},
                 ),
-                ListTileInkWell(
-                  text: "Privacidade",
-                  function: () {},
+                ItemDrawer(
+                  titulo: "Privacidade",
+                  onTap: () {},
                 ),
               ],
             ),
