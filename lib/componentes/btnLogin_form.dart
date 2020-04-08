@@ -5,7 +5,6 @@ class BtnLoginForm extends StatelessWidget {
   final Color cor;
   final Function funcao;
   final double width;
-  //TODO: Alterar flatButton
 
   BtnLoginForm({
     this.texto = "LOGAR",
@@ -16,6 +15,7 @@ class BtnLoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.053,
       width: width,
       padding: EdgeInsets.only(
         left: 12,
@@ -23,13 +23,15 @@ class BtnLoginForm extends StatelessWidget {
       ),
       decoration:
           BoxDecoration(color: cor, borderRadius: BorderRadius.circular(50)),
-      child: FlatButton(
-        onPressed: funcao,
-        child: Text(
-          texto,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
+      child: InkWell(
+        onTap: funcao,
+        child: Center(
+          child: Text(
+            texto,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
           ),
         ),
       ),
