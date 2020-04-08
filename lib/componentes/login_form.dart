@@ -16,7 +16,7 @@ class LoginForm extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 5),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.33,
+          height: MediaQuery.of(context).size.height * 0.275,
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.indigo,
