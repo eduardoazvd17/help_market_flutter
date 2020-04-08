@@ -13,19 +13,20 @@ class LoginForm extends StatelessWidget {
   //TODO: Adicionar funcoes para logar e esqueceu a senha
   @override
   Widget build(BuildContext context) {
+    var altura = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            color: Colors.grey,
             offset: Offset(0.0, 1.0), //(x,y)
             blurRadius: 8.0,
           ),
         ],
       ),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.30,
+        height: altura * 0.30,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.indigo,
@@ -34,20 +35,22 @@ class LoginForm extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.015,
+              height: altura * 0.015,
             ),
             InputLoginForm(
               icon: Icon(Icons.person),
               controller: userController,
               hintText: "Usuario",
+              keyboardType: TextInputType.emailAddress,
             ),
             InputLoginForm(
               icon: Icon(Icons.lock),
               controller: passController,
               hintText: "Senha",
+              obscureText: true,
             ),
             Padding(
-              padding: EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: altura * 0.012),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[

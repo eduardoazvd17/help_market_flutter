@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/login_form.dart';
 
 class TelaInicial extends StatelessWidget {
-  final testeCtrl = TextEditingController();
+  final usuarioCtrl = TextEditingController();
+  final senhaCtrl = TextEditingController();
 
   //TODO: Adicionar funcao registre-se
 
@@ -13,7 +14,7 @@ class TelaInicial extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(top: altura * 0.06),
+        margin: EdgeInsets.only(top: altura * 0.015),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -52,8 +53,8 @@ class TelaInicial extends StatelessWidget {
                 vertical: altura * 0.01,
               ),
               child: LoginForm(
-                passController: testeCtrl,
-                userController: testeCtrl,
+                passController: usuarioCtrl,
+                userController: senhaCtrl,
               ),
             ),
             FlatButton(
