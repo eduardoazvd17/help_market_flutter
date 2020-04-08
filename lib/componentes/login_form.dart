@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/btnLogin_form.dart';
 import 'package:lista_compras/componentes/inputLogin_form.dart';
 
 class LoginForm extends StatelessWidget {
@@ -50,7 +51,10 @@ class LoginForm extends StatelessWidget {
               obscureText: true,
             ),
             Padding(
-              padding: EdgeInsets.only(top: altura * 0.012),
+              padding: EdgeInsets.only(
+                top: altura * 0.012,
+                bottom: altura * 0.012,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
@@ -63,24 +67,9 @@ class LoginForm extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(
-                      left: 12,
-                      right: 12,
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.indigo[300],
-                        borderRadius: BorderRadius.circular(50)),
-                    child: FlatButton(
-                      onPressed: () {},
-                      child: Text(
-                        "LOGAR",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
+                  BtnLoginForm(
+                    cor: Colors.indigo[300],
+                    funcao: () {},
                   ),
                 ],
               ),
