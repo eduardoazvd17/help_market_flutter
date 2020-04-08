@@ -53,7 +53,7 @@ class LoginForm extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                 top: altura * 0.012,
-                bottom: altura * 0.012,
+                bottom: altura * 0.016,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
