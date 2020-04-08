@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/main_drawer.dart';
 import 'package:lista_compras/telas/tela_configuracoes.dart';
 import 'package:lista_compras/telas/tela_inicial.dart';
 import 'package:lista_compras/telas/tela_listas.dart';
@@ -32,6 +33,7 @@ class _TelaInicioState extends State<TelaInicio> {
               : _selectedIndex == 1 ? 'Minhas Listas' : 'Configurações',
         ),
       ),
+      drawer: MainDrawer(),
       body: widget._telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
