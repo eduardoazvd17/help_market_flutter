@@ -27,10 +27,11 @@ class TelaCadastro extends StatelessWidget {
               child: Card(
                 elevation: 10,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(
+                        top: altura * 0.03,
                         bottom: altura * 0.005,
                       ),
                       child: Text(
@@ -42,12 +43,19 @@ class TelaCadastro extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(bottom: altura * 0.005),
+                      padding: EdgeInsets.only(bottom: altura * 0.03),
                       child: Text(
                         "Cadastre-se para continuar.",
                         style: TextStyle(
                           fontSize: 16,
                         ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: altura * 0.03),
+                      child: Icon(
+                        Icons.people,
+                        size: altura * 0.08,
                       ),
                     ),
                     InputLoginForm(
@@ -80,7 +88,7 @@ class TelaCadastro extends StatelessWidget {
                       width: largura * 0.858,
                       texto: "Cadastrar-se",
                       funcao: () {},
-                      cor: Colors.green,
+                      cor: ThemeData().primaryColor,
                     ),
                     SizedBox(
                       height: altura * 0.02,
