@@ -10,13 +10,13 @@ class LoginForm extends StatelessWidget {
     this.passController,
   });
 
+  //TODO: Adicionar funcoes para logar e esqueceu a senha
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 5),
+      // padding: EdgeInsets.symmetric(horizontal: 5),
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.275,
+        height: MediaQuery.of(context).size.height * 0.30,
           width: double.infinity,
           decoration: BoxDecoration(
             color: Colors.indigo,
@@ -24,23 +24,28 @@ class LoginForm extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.015,
+            ),
               InputLoginForm(
+              icon: Icon(Icons.person),
                 controller: userController,
-                hintText: "Username",
+              hintText: "Usuario",
               ),
               InputLoginForm(
+              icon: Icon(Icons.lock),
                 controller: passController,
-                hintText: "Password",
+              hintText: "Senha",
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16),
+              padding: EdgeInsets.only(top: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {},
                       child: Text(
-                        "Forgot Password?",
+                      "Esqueceu a senha?",
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -57,7 +62,7 @@ class LoginForm extends StatelessWidget {
                       child: FlatButton(
                         onPressed: () {},
                         child: Text(
-                          "SIGN IN",
+                        "LOGAR",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -71,7 +76,6 @@ class LoginForm extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class InputLoginForm extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final Widget icon;
 
   InputLoginForm({
     @required this.controller,
+    this.icon,
     this.hintText = "Default",
   });
 
@@ -20,6 +22,7 @@ class InputLoginForm extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
+          prefixIcon: icon,
           hintText: hintText,
           contentPadding: EdgeInsets.only(left: 20),
           border: OutlineInputBorder(
