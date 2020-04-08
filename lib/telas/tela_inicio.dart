@@ -27,6 +27,7 @@ class _TelaInicioState extends State<TelaInicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text(
           _selectedIndex == 0
               ? 'Inicio'
