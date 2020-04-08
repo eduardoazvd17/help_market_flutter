@@ -9,6 +9,7 @@ class ListaCompras extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.indigo,
+        accentColor: Colors.pink,
       ),
       debugShowCheckedModeBanner: false,
       home: TelaInicio(),

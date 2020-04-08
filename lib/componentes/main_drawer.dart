@@ -2,29 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/listTile_inkWell.dart';
 
 class MainDrawer extends StatelessWidget {
-  final String nome;
-  final String email;
-
-  MainDrawer({
-    this.email,
-    this.nome,
-  });
-
   //TODO: adicionar funcionalidade aos botoes do drawer.
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: <Widget>[
           Container(
-            color: ThemeData().primaryColor,
+            color: Theme.of(context).primaryColor,
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: Container(
               width: double.infinity,
               child: DrawerHeader(
                 decoration: BoxDecoration(
-                  color: ThemeData().primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 child: Column(
                   children: <Widget>[

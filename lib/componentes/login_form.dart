@@ -68,7 +68,7 @@ class LoginForm extends StatelessWidget {
                     ),
                   ),
                   BtnLoginForm(
-                    cor: ThemeData().primaryColor,
+                    cor: Theme.of(context).accentColor,
                     funcao: () {},
                   ),
                 ],

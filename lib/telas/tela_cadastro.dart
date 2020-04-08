@@ -88,7 +88,7 @@ class TelaCadastro extends StatelessWidget {
                       width: largura * 0.858,
                       texto: "Cadastrar-se",
                       funcao: () {},
-                      cor: ThemeData().primaryColor,
+                      cor: Theme.of(context).primaryColor,
                     ),
                     SizedBox(
                       height: altura * 0.02,
