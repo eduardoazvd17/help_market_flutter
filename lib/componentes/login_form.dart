@@ -5,13 +5,14 @@ import 'package:lista_compras/componentes/inputLogin_form.dart';
 class LoginForm extends StatelessWidget {
   final TextEditingController userController;
   final TextEditingController passController;
+  final Function onSubmit;
 
   LoginForm({
     this.userController,
     this.passController,
+    this.onSubmit,
   });
 
-  //TODO: Adicionar funcoes para logar e esqueceu a senha
   @override
   Widget build(BuildContext context) {
     var altura = MediaQuery.of(context).size.height;
@@ -39,9 +40,9 @@ class LoginForm extends StatelessWidget {
               height: altura * 0.015,
             ),
             InputLoginForm(
-              icon: Icon(Icons.person),
+              icon: Icon(Icons.mail),
               controller: userController,
-              hintText: "Usuario",
+              hintText: "E-mail",
               keyboardType: TextInputType.emailAddress,
             ),
             InputLoginForm(
@@ -54,9 +55,11 @@ class LoginForm extends StatelessWidget {
               padding: EdgeInsets.only(
                 top: altura * 0.012,
                 bottom: altura * 0.016,
+                left: 25,
+                right: 25,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
                     onPressed: () {},
@@ -69,7 +72,7 @@ class LoginForm extends StatelessWidget {
                   ),
                   BtnLoginForm(
                     cor: Theme.of(context).accentColor,
-                    funcao: () {},
+                    funcao: onSubmit,
                   ),
                 ],
               ),

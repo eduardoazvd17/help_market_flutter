@@ -5,6 +5,7 @@ class InputLoginForm extends StatelessWidget {
   final String hintText;
   final Widget icon;
   final bool obscureText;
+  final TextCapitalization captalizacao;
   final TextInputType keyboardType;
 
   InputLoginForm({
@@ -12,6 +13,7 @@ class InputLoginForm extends StatelessWidget {
     this.icon,
     this.hintText = "Default",
     this.obscureText = false,
+    this.captalizacao,
     this.keyboardType = TextInputType.text,
   });
 
@@ -27,6 +29,8 @@ class InputLoginForm extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         obscureText: obscureText,
+        textCapitalization:
+            captalizacao == null ? TextCapitalization.none : captalizacao,
         decoration: InputDecoration(
           prefixIcon: icon,
           hintText: hintText,

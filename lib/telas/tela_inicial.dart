@@ -1,8 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/login_form.dart';
+import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
 
 class TelaInicial extends StatelessWidget {
+  Usuario usuario;
+  Function(Usuario) atualizarUsuario;
+  TelaInicial(this.usuario, this.atualizarUsuario);
+
   final usuarioCtrl = TextEditingController();
   final senhaCtrl = TextEditingController();
 
@@ -12,6 +19,56 @@ class TelaInicial extends StatelessWidget {
   Widget build(BuildContext context) {
     var altura = MediaQuery.of(context).size.height;
     var largura = MediaQuery.of(context).size.width;
+
+    _enviar(context) async {
+      String email = usuarioCtrl.text;
+      String senha = senhaCtrl.text;
+
+      if (email.isEmpty || senha.isEmpty) {
+        return;
+      }
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 15),
+                  Text(
+                    "Carregando",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+      try {
+        AuthResult auth = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: senha);
+        FirebaseUser user = auth.user;
+        DocumentSnapshot doc = await Firestore.instance
+            .collection('usuarios')
+            .document(user.uid)
+            .get();
+        Usuario usuario = Usuario(user.uid, doc['nome'], doc['email']);
+        atualizarUsuario(usuario);
+        Navigator.of(context).pop();
+      } catch (e) {
+        return;
+      }
+    }
 
     return Container(
       color: Theme.of(context).primaryColor,
@@ -47,7 +104,7 @@ class TelaInicial extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "Welcome \$user!",
+                          "Welcome!",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -57,32 +114,44 @@ class TelaInicial extends StatelessWidget {
                           height: altura * 0.015,
                         ),
                         Text(
-                          "Welcome \$user! Welcome \$user! Welcome \$user! ",
+                          "Seja bem vindo ao app lista de compras.",
                           style: TextStyle(),
                         ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: largura * 0.02,
-                      vertical: altura * 0.01,
-                    ),
-                    child: LoginForm(
-                      passController: senhaCtrl,
-                      userController: usuarioCtrl,
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => TelaCadastro()));
-                    },
-                    child: Text(
-                      "Não tem uma conta? Cadastre-se.",
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
+                  usuario == null
+                      ? Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: largura * 0.02,
+                                vertical: altura * 0.01,
+                              ),
+                              child: LoginForm(
+                                passController: senhaCtrl,
+                                userController: usuarioCtrl,
+                                onSubmit: () => _enviar(context),
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        TelaCadastro(atualizarUsuario),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Não tem uma conta? Cadastre-se.",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(child: Center(child: Text('Logado'))),
                 ],
               ),
             ),

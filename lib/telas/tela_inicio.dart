@@ -1,41 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/main_drawer.dart';
+import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_configuracoes.dart';
 import 'package:lista_compras/telas/tela_inicial.dart';
 import 'package:lista_compras/telas/tela_listas.dart';
 
 class TelaInicio extends StatefulWidget {
-  final List<Widget> _telas = [
-    TelaInicial(),
-    TelaListas(),
-    TelaConfiguracoes(),
-  ];
-
   @override
   _TelaInicioState createState() => _TelaInicioState();
 }
 
 class _TelaInicioState extends State<TelaInicio> {
+  Usuario usuario;
   int _selectedIndex = 0;
+
   void _onItemTapped(int index) {
+    if (usuario == null) {
+      return;
+    }
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  _atualizarUsuario(Usuario usuario) {
+    setState(() {
+      this.usuario = usuario;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _telas = [
+      TelaInicial(usuario, _atualizarUsuario),
+      TelaListas(usuario),
+      TelaConfiguracoes(usuario),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          _selectedIndex == 0
-              ? 'Inicio'
-              : _selectedIndex == 1 ? 'Minhas Listas' : 'Configurações',
+          usuario == null
+              ? ''
+              : _selectedIndex == 0
+                  ? 'Inicio'
+                  : _selectedIndex == 1 ? 'Minhas Listas' : 'Configurações',
         ),
       ),
-      drawer: MainDrawer(),
-      body: widget._telas[_selectedIndex],
+      drawer: MainDrawer(usuario, _atualizarUsuario),
+      body: usuario == null ? _telas[0] : _telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
