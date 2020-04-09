@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/item_drawer.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/telas/tela_ajustes_conta.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -91,7 +92,16 @@ class MainDrawer extends StatelessWidget {
                             ItemDrawer(
                               icone: Icon(Icons.settings),
                               titulo: "Ajustes da Conta",
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => TelaAjustesConta(
+                                      usuario,
+                                      atualizarUsuario,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                             Divider(),
                             ItemDrawer(
