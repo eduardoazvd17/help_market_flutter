@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/form_redefinir_senha.dart';
 import 'package:lista_compras/componentes/login_form.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
@@ -83,6 +84,15 @@ class TelaInicial extends StatelessWidget {
       }
     }
 
+    _esqueciMinhaSenha(context) {
+      String email = usuarioCtrl.text;
+      showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (_) => FormRedefinirSenha(email, atualizarUsuario),
+      );
+    }
+
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         height: constraints.maxHeight,
@@ -150,6 +160,7 @@ class TelaInicial extends StatelessWidget {
                                 passController: senhaCtrl,
                                 userController: usuarioCtrl,
                                 onSubmit: () => _enviar(context),
+                                onForgotPass: () => _esqueciMinhaSenha(context),
                               ),
                             ),
                             FlatButton(
