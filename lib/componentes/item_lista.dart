@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/form_lista.dart';
 import 'package:lista_compras/modelos/lista.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_produtos.dart';
@@ -33,7 +35,14 @@ class ItemLista extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  //TODO: Edita a lista
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (_) => FormLista(
+                      usuario: usuario,
+                      lista: lista,
+                    ),
+                  );
                 },
               ),
               IconButton(
@@ -48,11 +57,24 @@ class ItemLista extends StatelessWidget {
                         return AlertDialog(
                           title: Text('Excluir Lista'),
                           content: Text(
-                              'Deseja realmente excluir a lista: ${lista.nome}?'),
+                              'Deseja realmente excluir a lista: ${lista.nome}?\nTodos os produtos desta lista também serão apagados.'),
                           actions: <Widget>[
                             FlatButton(
                               onPressed: () {
-                                //TODO: Exclui a lista
+                                Firestore.instance
+                                    .collection('listas')
+                                    .document(lista.id)
+                                    .delete();
+                                Firestore.instance
+                                    .collection('listas')
+                                    .document(lista.id)
+                                    .collection('produtos')
+                                    .getDocuments()
+                                    .then((docs) {
+                                  for (var doc in docs.documents) {
+                                    doc.reference.delete();
+                                  }
+                                });
                                 Navigator.of(context).pop();
                               },
                               child: Text('Sim'),

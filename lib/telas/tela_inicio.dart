@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/form_lista.dart';
 import 'package:lista_compras/componentes/main_drawer.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_configuracoes.dart';
@@ -50,6 +51,21 @@ class _TelaInicioState extends State<TelaInicio> {
       ),
       drawer: MainDrawer(usuario, _atualizarUsuario),
       body: usuario == null ? _telas[0] : _telas[_selectedIndex],
+      floatingActionButton: _selectedIndex == 1
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (_) => FormLista(
+                    usuario: usuario,
+                    lista: null,
+                  ),
+                );
+              },
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

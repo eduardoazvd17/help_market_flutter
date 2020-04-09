@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/lista.dart';
 import 'package:lista_compras/modelos/produto.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+
+import 'form_produto.dart';
 
 class ItemProduto extends StatelessWidget {
   final Usuario usuario;
@@ -35,7 +38,15 @@ class ItemProduto extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  //TODO: Edita o produto.
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (_) => FormProduto(
+                      usuario: usuario,
+                      lista: lista,
+                      produto: produto,
+                    ),
+                  );
                 },
               ),
               IconButton(
@@ -54,7 +65,12 @@ class ItemProduto extends StatelessWidget {
                           actions: <Widget>[
                             FlatButton(
                               onPressed: () {
-                                //TODO: Exclui o produto
+                                Firestore.instance
+                                    .collection('listas')
+                                    .document(lista.id)
+                                    .collection('produtos')
+                                    .document(produto.id)
+                                    .delete();
                                 Navigator.of(context).pop();
                               },
                               child: Text('Sim'),

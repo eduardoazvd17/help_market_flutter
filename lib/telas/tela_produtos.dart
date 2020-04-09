@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/form_produto.dart';
 import 'package:lista_compras/componentes/item_produto.dart';
 import 'package:lista_compras/componentes/mensagem_lista_vazia.dart';
 import 'package:lista_compras/modelos/lista.dart';
@@ -16,6 +17,20 @@ class TelaProdutos extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(lista.nome),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (_) => FormProduto(
+              usuario: usuario,
+              lista: lista,
+              produto: null,
+            ),
+          );
+        },
       ),
       body: StreamBuilder(
         stream: Firestore.instance
