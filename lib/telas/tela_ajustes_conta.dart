@@ -9,10 +9,30 @@ class TelaAjustesConta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(usuario.nome),
-      ),
-      body: Container(),
-    );
+        appBar: AppBar(
+          elevation: 0,
+          title: Text(usuario.nome),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              height: constraints.maxHeight,
+              width: constraints.maxWidth,
+              color: Theme.of(context).primaryColor,
+              child: Container(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40.0),
+                    topRight: Radius.circular(40.0),
+                  ),
+                ),
+                child: Container(),
+              ),
+            );
+          },
+        ));
   }
 }
