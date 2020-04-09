@@ -6,16 +6,17 @@ class LoginForm extends StatelessWidget {
   final TextEditingController userController;
   final TextEditingController passController;
   final Function onSubmit;
+  final Function onForgotPass;
 
   LoginForm({
     this.userController,
     this.passController,
     this.onSubmit,
+    this.onForgotPass,
   });
 
   @override
   Widget build(BuildContext context) {
-    var altura = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -28,41 +29,33 @@ class LoginForm extends StatelessWidget {
         ],
       ),
       child: Container(
-        height: altura * 0.30,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.indigo,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: altura * 0.015,
-            ),
-            InputLoginForm(
-              icon: Icon(Icons.mail),
-              controller: userController,
-              hintText: "E-mail",
-              keyboardType: TextInputType.emailAddress,
-            ),
-            InputLoginForm(
-              icon: Icon(Icons.lock),
-              controller: passController,
-              hintText: "Senha",
-              obscureText: true,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: altura * 0.012,
-                bottom: altura * 0.016,
-                left: 25,
-                right: 25,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            children: <Widget>[
+              InputLoginForm(
+                icon: Icon(Icons.mail),
+                controller: userController,
+                hintText: "E-mail",
+                keyboardType: TextInputType.emailAddress,
               ),
-              child: Row(
+              InputLoginForm(
+                icon: Icon(Icons.lock),
+                controller: passController,
+                hintText: "Senha",
+                obscureText: true,
+              ),
+              SizedBox(height: 8),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: onForgotPass,
                     child: Text(
                       "Esqueceu a senha?",
                       style: TextStyle(
@@ -76,8 +69,9 @@ class LoginForm extends StatelessWidget {
                   ),
                 ],
               ),
-            )
-          ],
+              SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );

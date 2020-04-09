@@ -22,8 +22,6 @@ class InputLoginForm extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(
         top: 16,
-        left: 20,
-        right: 20,
       ),
       child: TextField(
         keyboardType: keyboardType,

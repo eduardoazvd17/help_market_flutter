@@ -78,19 +78,15 @@ class TelaCadastro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var altura = MediaQuery.of(context).size.height;
-    var largura = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
-          width: double.infinity,
           color: Theme.of(context).primaryColor,
           child: Container(
-            margin: EdgeInsets.only(top: altura * 0.015),
+            margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
@@ -101,16 +97,14 @@ class TelaCadastro extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: altura * 0.01),
+                SizedBox(height: 10),
                 Container(
-                  width: largura * 0.98,
-                  height: altura * 0.82,
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                          top: altura * 0.03,
-                          bottom: altura * 0.005,
+                          top: 10,
+                          bottom: 10,
                         ),
                         child: Text(
                           "Seja Bem-Vindo!",
@@ -121,7 +115,7 @@ class TelaCadastro extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: altura * 0.03),
+                        padding: EdgeInsets.only(bottom: 10),
                         child: Text(
                           "Cadastre-se para continuar.",
                           style: TextStyle(
@@ -130,56 +124,61 @@ class TelaCadastro extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom: altura * 0.03),
+                        padding: EdgeInsets.only(bottom: 10),
                         child: Icon(
                           Icons.people,
-                          size: altura * 0.08,
+                          size: 100,
                         ),
                       ),
-                      InputLoginForm(
-                        icon: Icon(Icons.person),
-                        controller: nomeController,
-                        captalizacao: TextCapitalization.words,
-                        hintText: "Nome",
-                      ),
-                      InputLoginForm(
-                        icon: Icon(Icons.mail),
-                        controller: userController,
-                        hintText: "Email",
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      InputLoginForm(
-                        icon: Icon(Icons.lock),
-                        controller: passController,
-                        hintText: "Senha",
-                        obscureText: true,
-                      ),
-                      InputLoginForm(
-                        icon: Icon(Icons.lock),
-                        controller: confirmPassController,
-                        hintText: "Confirmar Senha",
-                        obscureText: true,
-                      ),
-                      SizedBox(
-                        height: altura * 0.02,
-                      ),
-                      BtnLoginForm(
-                        width: largura * 0.858,
-                        texto: "Cadastrar-se",
-                        funcao: () => _enviar(context),
-                        cor: Theme.of(context).primaryColor,
-                      ),
-                      SizedBox(
-                        height: altura * 0.02,
-                      ),
-                      BtnLoginForm(
-                        width: largura * 0.858,
-                        texto: "Cancelar",
-                        cor: Colors.red,
-                        funcao: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Column(
+                          children: <Widget>[
+                            InputLoginForm(
+                              icon: Icon(Icons.person),
+                              controller: nomeController,
+                              captalizacao: TextCapitalization.words,
+                              hintText: "Nome",
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.mail),
+                              controller: userController,
+                              hintText: "Email",
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.lock),
+                              controller: passController,
+                              hintText: "Senha",
+                              obscureText: true,
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.lock),
+                              controller: confirmPassController,
+                              hintText: "Confirmar Senha",
+                              obscureText: true,
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            BtnLoginForm(
+                              texto: "Cadastrar-se",
+                              funcao: () => _enviar(context),
+                              cor: Theme.of(context).primaryColor,
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            BtnLoginForm(
+                              texto: "Cancelar",
+                              cor: Colors.red,
+                              funcao: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),

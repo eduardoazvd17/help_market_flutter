@@ -4,12 +4,10 @@ class BtnLoginForm extends StatelessWidget {
   final String texto;
   final Color cor;
   final Function funcao;
-  final double width;
 
   BtnLoginForm({
     this.texto = "Entrar",
     this.cor = (Colors.indigo),
-    this.width,
     @required this.funcao,
   });
 
@@ -19,12 +17,7 @@ class BtnLoginForm extends StatelessWidget {
       borderRadius: BorderRadius.circular(50),
       onTap: funcao,
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.053,
-        width: width,
-        padding: EdgeInsets.only(
-          left: 12,
-          right: 12,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration:
             BoxDecoration(color: cor, borderRadius: BorderRadius.circular(50)),
         child: Center(
