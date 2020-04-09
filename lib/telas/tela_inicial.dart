@@ -17,9 +17,6 @@ class TelaInicial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var altura = MediaQuery.of(context).size.height;
-    var largura = MediaQuery.of(context).size.width;
-
     _enviar(context) async {
       String email = usuarioCtrl.text;
       String senha = senhaCtrl.text;
@@ -70,14 +67,15 @@ class TelaInicial extends StatelessWidget {
       }
     }
 
-    return Container(
-      color: Theme.of(context).primaryColor,
-      child: Center(
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        color: Theme.of(context).primaryColor,
         child: SingleChildScrollView(
           child: Container(
+            height: constraints.maxHeight,
+            width: constraints.maxWidth,
             color: Theme.of(context).primaryColor,
             child: Container(
-              height: altura * 0.815,
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.only(
@@ -85,21 +83,21 @@ class TelaInicial extends StatelessWidget {
                   topRight: Radius.circular(40.0),
                 ),
               ),
-              margin: EdgeInsets.only(top: altura * 0.015),
+              margin: EdgeInsets.only(top: constraints.maxHeight * 0.015),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: altura * 0.02),
+                  SizedBox(height: constraints.maxHeight * 0.02),
                   Container(
-                    height: altura * 0.25,
+                    height: constraints.maxHeight * 0.25,
                     child: Image.network(
                       "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
-                      vertical: altura * 0.02,
+                      vertical: constraints.maxHeight * 0.02,
                     ),
                     child: Column(
                       children: <Widget>[
@@ -111,54 +109,52 @@ class TelaInicial extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: altura * 0.015,
+                          height: constraints.maxHeight * 0.015,
                         ),
                         Text(
                           "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar",
                           textAlign: TextAlign.center,
                           style: TextStyle(),
                         ),
+                        SizedBox(
+                          height: constraints.maxHeight * 0.025,
+                        ),
+                        usuario == null
+                            ? Column(
+                                children: <Widget>[
+                                  LoginForm(
+                                    passController: senhaCtrl,
+                                    userController: usuarioCtrl,
+                                    onSubmit: () => _enviar(context),
+                                  ),
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              TelaCadastro(atualizarUsuario),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Não tem uma conta? Cadastre-se.",
+                                      style: TextStyle(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(child: Center(child: Text('Logado'))),
                       ],
                     ),
                   ),
-                  usuario == null
-                      ? Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: largura * 0.02,
-                                vertical: altura * 0.01,
-                              ),
-                              child: LoginForm(
-                                passController: senhaCtrl,
-                                userController: usuarioCtrl,
-                                onSubmit: () => _enviar(context),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        TelaCadastro(atualizarUsuario),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                "Não tem uma conta? Cadastre-se.",
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(child: Center(child: Text('Logado'))),
                 ],
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
