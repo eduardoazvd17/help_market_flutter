@@ -69,95 +69,92 @@ class TelaInicial extends StatelessWidget {
 
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
+        height: constraints.maxHeight,
+        width: constraints.maxWidth,
         color: Theme.of(context).primaryColor,
         child: Container(
           height: constraints.maxHeight,
           width: constraints.maxWidth,
-          color: Theme.of(context).primaryColor,
-          child: Container(
-            height: constraints.maxHeight,
-            width: constraints.maxWidth,
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
-              ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.0),
+              topRight: Radius.circular(40.0),
             ),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: constraints.maxHeight * 0.02),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: constraints.maxHeight * 0.02,
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: constraints.maxHeight * 0.25,
-                            child: Image.network(
-                              "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
-                            ),
-                          ),
-                          SizedBox(height: constraints.maxHeight * 0.02),
-                          Text(
-                            usuario == null
-                                ? "Welcome!"
-                                : "Olá, ${usuario.nome.split(' ').first}!",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.015,
-                          ),
-                          Text(
-                            usuario == null
-                                ? "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar"
-                                : "Seja bem vindo de volta ao app lista de compras",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(),
-                          ),
-                        ],
-                      ),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: constraints.maxHeight * 0.02),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: constraints.maxHeight * 0.02,
                     ),
-                    usuario == null
-                        ? Column(
-                            children: <Widget>[
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: LoginForm(
-                                  passController: senhaCtrl,
-                                  userController: usuarioCtrl,
-                                  onSubmit: () => _enviar(context),
-                                ),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: constraints.maxHeight * 0.25,
+                          child: Image.network(
+                            "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
+                          ),
+                        ),
+                        SizedBox(height: constraints.maxHeight * 0.02),
+                        Text(
+                          usuario == null
+                              ? "Welcome!"
+                              : "Olá, ${usuario.nome.split(' ').first}!",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          height: constraints.maxHeight * 0.015,
+                        ),
+                        Text(
+                          usuario == null
+                              ? "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar"
+                              : "Seja bem vindo de volta ao app lista de compras",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  usuario == null
+                      ? Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: LoginForm(
+                                passController: senhaCtrl,
+                                userController: usuarioCtrl,
+                                onSubmit: () => _enviar(context),
                               ),
-                              FlatButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          TelaCadastro(atualizarUsuario),
-                                    ),
-                                  );
-                                },
-                                child: Text(
-                                  "Não tem uma conta? Cadastre-se.",
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                ),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        TelaCadastro(atualizarUsuario),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Não tem uma conta? Cadastre-se.",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
                               ),
-                            ],
-                          )
-                        : Container(), //<- Tela de apresentação apos se autenticar.
-                  ],
-                ),
+                            ),
+                          ],
+                        )
+                      : Container(), //<- Tela de apresentação apos se autenticar.
+                ],
               ),
             ),
           ),
