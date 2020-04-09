@@ -74,17 +74,17 @@ class TelaInicial extends StatelessWidget {
           height: constraints.maxHeight,
           width: constraints.maxWidth,
           color: Theme.of(context).primaryColor,
-          child: SingleChildScrollView(
-            child: Container(
-              height: constraints.maxHeight,
-              width: constraints.maxWidth,
-              decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40.0),
-                  topRight: Radius.circular(40.0),
-                ),
+          child: Container(
+            height: constraints.maxHeight,
+            width: constraints.maxWidth,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0),
               ),
+            ),
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
