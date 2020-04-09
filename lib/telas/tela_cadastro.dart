@@ -56,18 +56,13 @@ class TelaCadastro extends StatelessWidget {
     );
 
     try {
-      //Faz a autenticação
       AuthResult auth = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: senha);
       FirebaseUser user = auth.user;
-      //Envia verificacao por email
-      user.sendEmailVerification();
-      //Armazena dados no banco
       Firestore.instance.collection('usuarios').document(user.uid).setData({
         'nome': nome,
         'email': email,
       });
-      //Armazena a config modo noturno.
       Firestore.instance
           .collection('usuarios')
           .document(user.uid)
@@ -77,12 +72,31 @@ class TelaCadastro extends StatelessWidget {
         'nome': 'Modo Noturno',
         'valor': false,
       });
-      //Atualizar usuario.
       atualizarUsuario(new Usuario(user.uid, nome, email));
-      Navigator.of(context).pop(); //Fecha o loading dialog
-      Navigator.of(context).pop(); //Fecha a tela de cadastro.
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
     } catch (e) {
-      //TODO: showDialog Erro.
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("Conta Existente"),
+            content: new Text(
+                "Este e-mail ja está cadastrado no nosso sistema. Entre com sua conta para continuar."),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Entrar"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
       return;
     }
   }

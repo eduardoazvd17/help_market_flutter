@@ -13,8 +13,6 @@ class TelaInicial extends StatelessWidget {
   final usuarioCtrl = TextEditingController();
   final senhaCtrl = TextEditingController();
 
-  //TODO: Adicionar funcao registre-se
-
   @override
   Widget build(BuildContext context) {
     _enviar(context) async {
@@ -63,6 +61,24 @@ class TelaInicial extends StatelessWidget {
         atualizarUsuario(usuario);
         Navigator.of(context).pop();
       } catch (e) {
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: new Text("Credenciais Incorretas"),
+              content: new Text("Verifique a digitação e tente novamente."),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
         return;
       }
     }
