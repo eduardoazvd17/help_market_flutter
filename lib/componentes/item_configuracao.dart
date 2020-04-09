@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/config.dart';
 import 'package:lista_compras/modelos/usuario.dart';
@@ -15,7 +16,14 @@ class ItemConfiguracao extends StatelessWidget {
         SwitchListTile(
           value: config.valor,
           onChanged: (valor) {
-            //TODO: Altera no firebase
+            Firestore.instance
+                .collection('usuarios')
+                .document(usuario.id)
+                .collection('config')
+                .document(config.id)
+                .updateData({
+              'valor': valor,
+            });
           },
           title: Text(config.nome),
         ),

@@ -28,7 +28,6 @@ class TelaCadastro extends StatelessWidget {
       return;
     }
 
-    //Loading dialog
     showDialog(
       context: context,
       barrierDismissible: false,
