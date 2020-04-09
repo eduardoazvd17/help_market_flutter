@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ItemConfiguracao extends StatelessWidget {
+  final String titulo;
+  final bool valor;
+  final Function(bool) onChange;
+  ItemConfiguracao({this.titulo, this.valor, this.onChange});
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         SwitchListTile(
-          value: false,
-          onChanged: (valor) {
-            //TODO: Armazena dados alterados.
-          },
-          title: Text('titulo'),
+          value: valor,
+          onChanged: onChange(valor),
+          title: Text(titulo),
         ),
         Divider(),
       ],

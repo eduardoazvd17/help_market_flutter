@@ -105,7 +105,9 @@ class TelaInicial extends StatelessWidget {
                           ),
                           SizedBox(height: constraints.maxHeight * 0.02),
                           Text(
-                            "Welcome!",
+                            usuario == null
+                                ? "Welcome!"
+                                : "Olá, ${usuario.nome.split(' ').first}!",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -117,7 +119,7 @@ class TelaInicial extends StatelessWidget {
                           Text(
                             usuario == null
                                 ? "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar"
-                                : "Seja bem vindo ao app lista de compras",
+                                : "Seja bem vindo de volta ao app lista de compras",
                             textAlign: TextAlign.center,
                             style: TextStyle(),
                           ),
