@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:lista_compras/modelos/lista.dart';
+import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/telas/tela_produtos.dart';
 
 class ItemLista extends StatelessWidget {
-  final String titulo;
-  final DateTime data;
-  final Function onTap;
-  final Function onEditar;
-  final Function onExcluir;
+  final Usuario usuario;
+  final Lista lista;
   ItemLista({
-    this.titulo,
-    this.data,
-    this.onEditar,
-    this.onExcluir,
-    this.onTap,
+    this.usuario,
+    this.lista,
   });
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ListTile(
-          onTap: onTap,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TelaProdutos(usuario, lista),
+              ),
+            );
+          },
           leading: CircleAvatar(
             child: Icon(Icons.list),
           ),
-          title: Text(titulo),
-          subtitle: Text(data.toString()),
+          title: Text(lista.nome),
+          subtitle: Text(lista.data.toString()),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: onEditar,
+                onPressed: () {
+                  //TODO: Edita a lista
+                },
               ),
               IconButton(
                 icon: Icon(
@@ -42,11 +47,12 @@ class ItemLista extends StatelessWidget {
                       builder: (context) {
                         return AlertDialog(
                           title: Text('Excluir Lista'),
-                          content: Text('Deseja realmente excluir a lista: ?'),
+                          content: Text(
+                              'Deseja realmente excluir a lista: ${lista.nome}?'),
                           actions: <Widget>[
                             FlatButton(
                               onPressed: () {
-                                onExcluir();
+                                //TODO: Exclui a lista
                                 Navigator.of(context).pop();
                               },
                               child: Text('Sim'),
