@@ -96,93 +96,95 @@ class TelaCadastro extends StatelessWidget {
                   topRight: Radius.circular(40.0),
                 ),
               ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: constraints.maxHeight * 0.02),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: constraints.maxHeight * 0.02,
-                        bottom: constraints.maxHeight * 0.02,
-                      ),
-                      child: Text(
-                        "Seja Bem-Vindo!",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: constraints.maxHeight * 0.02),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: constraints.maxHeight * 0.02,
+                          bottom: constraints.maxHeight * 0.02,
+                        ),
+                        child: Text(
+                          "Seja Bem-Vindo!",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(bottom: constraints.maxHeight * 0.01),
-                      child: Text(
-                        "Cadastre-se para continuar.",
-                        style: TextStyle(
-                          fontSize: 16,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: constraints.maxHeight * 0.01),
+                        child: Text(
+                          "Cadastre-se para continuar.",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(bottom: constraints.maxHeight * 0.01),
-                      child: Icon(
-                        Icons.people,
-                        size: 100,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: constraints.maxHeight * 0.01),
+                        child: Icon(
+                          Icons.people,
+                          size: 100,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Column(
-                        children: <Widget>[
-                          InputLoginForm(
-                            icon: Icon(Icons.person),
-                            controller: nomeController,
-                            captalizacao: TextCapitalization.words,
-                            hintText: "Nome",
-                          ),
-                          InputLoginForm(
-                            icon: Icon(Icons.mail),
-                            controller: userController,
-                            hintText: "Email",
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          InputLoginForm(
-                            icon: Icon(Icons.lock),
-                            controller: passController,
-                            hintText: "Senha",
-                            obscureText: true,
-                          ),
-                          InputLoginForm(
-                            icon: Icon(Icons.lock),
-                            controller: confirmPassController,
-                            hintText: "Confirmar Senha",
-                            obscureText: true,
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.02,
-                          ),
-                          BtnLoginForm(
-                            texto: "Cadastrar-se",
-                            funcao: () => _enviar(context),
-                            cor: Theme.of(context).primaryColor,
-                          ),
-                          SizedBox(
-                            height: constraints.maxHeight * 0.02,
-                          ),
-                          BtnLoginForm(
-                            texto: "Cancelar",
-                            cor: Colors.red,
-                            funcao: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Column(
+                          children: <Widget>[
+                            InputLoginForm(
+                              icon: Icon(Icons.person),
+                              controller: nomeController,
+                              captalizacao: TextCapitalization.words,
+                              hintText: "Nome",
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.mail),
+                              controller: userController,
+                              hintText: "Email",
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.lock),
+                              controller: passController,
+                              hintText: "Senha",
+                              obscureText: true,
+                            ),
+                            InputLoginForm(
+                              icon: Icon(Icons.lock),
+                              controller: confirmPassController,
+                              hintText: "Confirmar Senha",
+                              obscureText: true,
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * 0.02,
+                            ),
+                            BtnLoginForm(
+                              texto: "Cadastrar-se",
+                              funcao: () => _enviar(context),
+                              cor: Theme.of(context).primaryColor,
+                            ),
+                            SizedBox(
+                              height: constraints.maxHeight * 0.02,
+                            ),
+                            BtnLoginForm(
+                              texto: "Cancelar",
+                              cor: Colors.red,
+                              funcao: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: constraints.maxHeight * 0.02),
-                  ],
+                      SizedBox(height: constraints.maxHeight * 0.02),
+                    ],
+                  ),
                 ),
               ),
             ),
