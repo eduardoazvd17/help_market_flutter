@@ -70,12 +70,14 @@ class TelaInicial extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(
         color: Theme.of(context).primaryColor,
-        child: SingleChildScrollView(
-          child: Container(
-            height: constraints.maxHeight,
-            width: constraints.maxWidth,
-            color: Theme.of(context).primaryColor,
+        child: Container(
+          height: constraints.maxHeight,
+          width: constraints.maxWidth,
+          color: Theme.of(context).primaryColor,
+          child: SingleChildScrollView(
             child: Container(
+              height: constraints.maxHeight,
+              width: constraints.maxWidth,
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.only(
@@ -83,24 +85,25 @@ class TelaInicial extends StatelessWidget {
                   topRight: Radius.circular(40.0),
                 ),
               ),
-              margin: EdgeInsets.only(top: constraints.maxHeight * 0.015),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: constraints.maxHeight * 0.02),
-                  Container(
-                    height: constraints.maxHeight * 0.25,
-                    child: Image.network(
-                      "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
-                    ),
-                  ),
                   Container(
                     margin: EdgeInsets.symmetric(
                       vertical: constraints.maxHeight * 0.02,
                     ),
                     child: Column(
                       children: <Widget>[
+                        Container(
+                          height: constraints.maxHeight * 0.25,
+                          child: Image.network(
+                            "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
+                          ),
+                        ),
+                        SizedBox(height: constraints.maxHeight * 0.02),
                         Text(
                           "Welcome!",
                           style: TextStyle(
@@ -116,39 +119,39 @@ class TelaInicial extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(),
                         ),
-                        SizedBox(
-                          height: constraints.maxHeight * 0.025,
-                        ),
-                        usuario == null
-                            ? Column(
-                                children: <Widget>[
-                                  LoginForm(
-                                    passController: senhaCtrl,
-                                    userController: usuarioCtrl,
-                                    onSubmit: () => _enviar(context),
-                                  ),
-                                  FlatButton(
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (_) =>
-                                              TelaCadastro(atualizarUsuario),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      "Não tem uma conta? Cadastre-se.",
-                                      style: TextStyle(
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Container(child: Center(child: Text('Logado'))),
                       ],
                     ),
                   ),
+                  usuario == null
+                      ? Column(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: LoginForm(
+                                passController: senhaCtrl,
+                                userController: usuarioCtrl,
+                                onSubmit: () => _enviar(context),
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        TelaCadastro(atualizarUsuario),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Não tem uma conta? Cadastre-se.",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(child: Center(child: Text('Logado'))),
                 ],
               ),
             ),

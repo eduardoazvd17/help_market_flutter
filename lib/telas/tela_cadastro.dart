@@ -82,111 +82,118 @@ class TelaCadastro extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: Theme.of(context).primaryColor,
-          child: Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 10),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        child: Text(
-                          "Seja Bem-Vindo!",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          "Cadastre-se para continuar.",
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Icon(
-                          Icons.people,
-                          size: 100,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Column(
-                          children: <Widget>[
-                            InputLoginForm(
-                              icon: Icon(Icons.person),
-                              controller: nomeController,
-                              captalizacao: TextCapitalization.words,
-                              hintText: "Nome",
-                            ),
-                            InputLoginForm(
-                              icon: Icon(Icons.mail),
-                              controller: userController,
-                              hintText: "Email",
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            InputLoginForm(
-                              icon: Icon(Icons.lock),
-                              controller: passController,
-                              hintText: "Senha",
-                              obscureText: true,
-                            ),
-                            InputLoginForm(
-                              icon: Icon(Icons.lock),
-                              controller: confirmPassController,
-                              hintText: "Confirmar Senha",
-                              obscureText: true,
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            BtnLoginForm(
-                              texto: "Cadastrar-se",
-                              funcao: () => _enviar(context),
-                              cor: Theme.of(context).primaryColor,
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            BtnLoginForm(
-                              texto: "Cancelar",
-                              cor: Colors.red,
-                              funcao: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+      body: LayoutBuilder(builder: (context, constraints) {
+        return Container(
+          width: constraints.maxWidth,
+          height: constraints.maxHeight,
+          child: SingleChildScrollView(
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40.0),
+                    topRight: Radius.circular(40.0),
                   ),
                 ),
-              ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: constraints.maxHeight * 0.02),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: constraints.maxHeight * 0.02,
+                              bottom: constraints.maxHeight * 0.02,
+                            ),
+                            child: Text(
+                              "Seja Bem-Vindo!",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: constraints.maxHeight * 0.01),
+                            child: Text(
+                              "Cadastre-se para continuar.",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: constraints.maxHeight * 0.01),
+                            child: Icon(
+                              Icons.people,
+                              size: 100,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Column(
+                              children: <Widget>[
+                                InputLoginForm(
+                                  icon: Icon(Icons.person),
+                                  controller: nomeController,
+                                  captalizacao: TextCapitalization.words,
+                                  hintText: "Nome",
+                                ),
+                                InputLoginForm(
+                                  icon: Icon(Icons.mail),
+                                  controller: userController,
+                                  hintText: "Email",
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                                InputLoginForm(
+                                  icon: Icon(Icons.lock),
+                                  controller: passController,
+                                  hintText: "Senha",
+                                  obscureText: true,
+                                ),
+                                InputLoginForm(
+                                  icon: Icon(Icons.lock),
+                                  controller: confirmPassController,
+                                  hintText: "Confirmar Senha",
+                                  obscureText: true,
+                                ),
+                                SizedBox(
+                                  height: constraints.maxHeight * 0.02,
+                                ),
+                                BtnLoginForm(
+                                  texto: "Cadastrar-se",
+                                  funcao: () => _enviar(context),
+                                  cor: Theme.of(context).primaryColor,
+                                ),
+                                SizedBox(
+                                  height: constraints.maxHeight * 0.02,
+                                ),
+                                BtnLoginForm(
+                                  texto: "Cancelar",
+                                  cor: Colors.red,
+                                  funcao: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }
