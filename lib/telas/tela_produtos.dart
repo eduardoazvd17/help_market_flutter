@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/item_produto.dart';
+import 'package:lista_compras/componentes/mensagem_lista_vazia.dart';
 import 'package:lista_compras/modelos/lista.dart';
 import 'package:lista_compras/modelos/produto.dart';
 import 'package:lista_compras/modelos/usuario.dart';
@@ -28,10 +29,8 @@ class TelaProdutos extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          if (!snapshots.hasData) {
-            return Center(
-              child: Text('Nenhum Produto Adicionado'),
-            );
+          if (snapshots.data.documents.length == 0) {
+            return MensagemListaVazia('Nenhum produto adicionado');
           }
           return ListView.builder(
             itemCount: snapshots.data.documents.length,

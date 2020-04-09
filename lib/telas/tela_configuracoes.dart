@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/item_configuracao.dart';
+import 'package:lista_compras/componentes/mensagem_lista_vazia.dart';
 import 'package:lista_compras/modelos/config.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 
@@ -23,16 +24,15 @@ class TelaConfiguracoes extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        if (!snapshots.hasData) {
-          return Center(
-            child: Text('Nenhuma lista criada'),
-          );
-        }
         return ListView.builder(
-          itemCount: 1,
+          itemCount: snapshots.data.documents.length,
           itemBuilder: (ctx, index) {
             DocumentSnapshot doc = snapshots.data.documents[index];
-            var config = Config(doc.documentID, doc['nome'], doc['valor']);
+            Config config = new Config(
+              doc.documentID,
+              doc['nome'],
+              doc['valor'] as bool,
+            );
             return ItemConfiguracao(
               usuario: usuario,
               config: config,
