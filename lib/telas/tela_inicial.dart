@@ -114,7 +114,8 @@ class TelaInicial extends StatelessWidget {
                           height: altura * 0.015,
                         ),
                         Text(
-                          "Seja bem vindo ao app lista de compras.",
+                          "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar",
+                          textAlign: TextAlign.center,
                           style: TextStyle(),
                         ),
                       ],
