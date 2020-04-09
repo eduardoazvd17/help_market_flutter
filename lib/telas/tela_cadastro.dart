@@ -67,7 +67,18 @@ class TelaCadastro extends StatelessWidget {
         'nome': nome,
         'email': email,
       });
-      atualizarUsuario(new Usuario(user.uid, nome, email)); //Atualizar usuario.
+      //Armazena a config modo noturno.
+      Firestore.instance
+          .collection('usuarios')
+          .document(user.uid)
+          .collection('config')
+          .document('modo-noturno')
+          .setData({
+        'nome': 'Modo Noturno',
+        'valor': false,
+      });
+      //Atualizar usuario.
+      atualizarUsuario(new Usuario(user.uid, nome, email));
       Navigator.of(context).pop(); //Fecha o loading dialog
       Navigator.of(context).pop(); //Fecha a tela de cadastro.
     } catch (e) {
