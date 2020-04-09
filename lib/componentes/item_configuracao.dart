@@ -5,7 +5,9 @@ import 'package:lista_compras/modelos/usuario.dart';
 class ItemConfiguracao extends StatelessWidget {
   final Usuario usuario;
   final Config config;
+
   ItemConfiguracao({this.usuario, this.config});
+
   @override
   Widget build(BuildContext context) {
     return Column(
