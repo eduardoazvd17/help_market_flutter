@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/config.dart';
 import 'package:lista_compras/modelos/usuario.dart';
-import 'package:lista_compras/telas/tela_inicio.dart';
 import 'package:lista_compras/telas/tela_splash.dart';
 
 void main() => runApp(ListaCompras());
