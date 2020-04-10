@@ -40,18 +40,23 @@ class _TelaSplashState extends State<TelaSplash> {
   Widget build(BuildContext context) {
     var altura = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Image.asset(
-              'assets/img/login-img.png',
-              height: altura * 0.25,
-              fit: BoxFit.cover,
+      body: Container(
+        color: Theme.of(context).primaryColor,
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(altura),
             ),
-          ],
+            child: Padding(
+              padding: EdgeInsets.all(50),
+              child: Image.asset(
+                'assets/img/login-img.png',
+                height: altura * 0.25,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
         ),
       ),
     );
