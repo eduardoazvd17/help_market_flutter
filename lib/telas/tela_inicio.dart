@@ -66,24 +66,26 @@ class _TelaInicioState extends State<TelaInicio> {
               },
             )
           : null,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Inicio'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            title: Text('Minhas Listas'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Configurações'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: usuario == null
+          ? null
+          : BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  title: Text('Inicio'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list),
+                  title: Text('Minhas Listas'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.settings),
+                  title: Text('Configurações'),
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
     );
   }
 }
