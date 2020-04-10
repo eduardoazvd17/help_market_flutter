@@ -15,23 +15,18 @@ class _TelaSplashState extends State<TelaSplash> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.currentUser().then((user) {
+      Usuario usuario;
+      if (user != null) {
+        usuario = Usuario(user.uid, user.displayName, user.email);
+        widget.atualizarConfigs(usuario);
+      }
       Future.delayed(Duration(seconds: 3), () {
-        if (user == null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => TelaInicio(null, widget.atualizarConfigs),
-            ),
-          );
-        } else {
-          Usuario usuario = Usuario(user.uid, user.displayName, user.email);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) => TelaInicio(usuario, widget.atualizarConfigs),
-            ),
-          );
-        }
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => TelaInicio(usuario, widget.atualizarConfigs),
+          ),
+        );
       });
     });
   }
