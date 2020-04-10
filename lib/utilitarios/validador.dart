@@ -80,7 +80,7 @@ class Validador {
   }
 
   bool validaEmail(String email) {
-    if (email.contains(RegExp('@.'))) {
+    if (!email.contains(RegExp('@.'))) {
       _dialogo(
         "E-mail Inválido",
         "O e-mail inserido é invalido, verifique a digitação e tente novamente.",

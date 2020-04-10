@@ -18,8 +18,8 @@ class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _enviar(context) async {
-      String email = usuarioCtrl.text;
-      String senha = senhaCtrl.text;
+      String email = usuarioCtrl.text.trim();
+      String senha = senhaCtrl.text.trim();
       Validador validador = Validador(context);
 
       if (!validador.valida(email) ||
@@ -86,8 +86,8 @@ class TelaInicial extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           height: constraints.maxHeight * 0.25,
-                          child: Image.network(
-                            "https://cdn.pixabay.com/photo/2018/10/03/21/44/shopping-3722450_960_720.png",
+                          child: Image.asset(
+                            "assets/img/login-img.png",
                           ),
                         ),
                         SizedBox(height: constraints.maxHeight * 0.02),
