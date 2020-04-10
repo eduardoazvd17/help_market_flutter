@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lista_compras/componentes/form_lista.dart';
 import 'package:lista_compras/modelos/lista.dart';
 import 'package:lista_compras/modelos/usuario.dart';
@@ -28,7 +29,7 @@ class ItemLista extends StatelessWidget {
             child: Icon(Icons.list),
           ),
           title: Text(lista.nome),
-          subtitle: Text(lista.data.toString()),
+          subtitle: Text(DateFormat('dd MMMM y').format(lista.data).toString()),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
