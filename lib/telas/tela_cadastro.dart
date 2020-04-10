@@ -37,10 +37,9 @@ class TelaCadastro extends StatelessWidget {
       AuthResult auth = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: senha);
       FirebaseUser user = auth.user;
-      Firestore.instance.collection('usuarios').document(user.uid).setData({
-        'nome': nome,
-        'email': email,
-      });
+      UserUpdateInfo update = new UserUpdateInfo();
+      update.displayName = nome;
+      user.updateProfile(update);
       Firestore.instance
           .collection('usuarios')
           .document(user.uid)
@@ -50,9 +49,6 @@ class TelaCadastro extends StatelessWidget {
         'nome': 'Modo Noturno',
         'valor': false,
       });
-      UserUpdateInfo update = new UserUpdateInfo();
-      update.displayName = nome;
-      user.updateProfile(update);
       atualizarUsuario(new Usuario(user.uid, nome, email));
       validador.ocultarCarregamento();
       Navigator.of(context).pop();

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/config.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_inicio.dart';
+import 'package:lista_compras/telas/tela_splash.dart';
 
 void main() => runApp(ListaCompras());
 
@@ -87,7 +88,7 @@ class _ListaComprasState extends State<ListaCompras> {
           ? light
           : configs['modo-noturno'].valor ? dark : light,
       debugShowCheckedModeBanner: false,
-      home: TelaInicio(_atualizarConfigs),
+      home: TelaSplash(_atualizarConfigs),
     );
   }
 }
