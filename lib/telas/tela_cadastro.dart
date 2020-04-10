@@ -50,6 +50,9 @@ class TelaCadastro extends StatelessWidget {
         'nome': 'Modo Noturno',
         'valor': false,
       });
+      UserUpdateInfo update = new UserUpdateInfo();
+      update.displayName = nome;
+      user.updateProfile(update);
       atualizarUsuario(new Usuario(user.uid, nome, email));
       validador.ocultarCarregamento();
       Navigator.of(context).pop();
