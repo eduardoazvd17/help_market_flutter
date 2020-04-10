@@ -29,7 +29,7 @@ class ItemLista extends StatelessWidget {
             child: Icon(Icons.list),
           ),
           title: Text(lista.nome),
-          subtitle: Text(DateFormat('dd MMMM y').format(lista.data).toString()),
+          subtitle: Text(formatarData()),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -97,5 +97,12 @@ class ItemLista extends StatelessWidget {
         Divider(),
       ],
     );
+  }
+
+  formatarData() {
+    var dataFormatada =
+        DateFormat('dd MMMM y', 'pt_BR').format(lista.data).toString();
+
+    return dataFormatada;
   }
 }
