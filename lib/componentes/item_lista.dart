@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:lista_compras/componentes/form_lista.dart';
 import 'package:lista_compras/modelos/lista.dart';
@@ -100,9 +101,10 @@ class ItemLista extends StatelessWidget {
   }
 
   formatarData() {
-    var dataFormatada =
-        DateFormat('dd MMMM y', 'pt_BR').format(lista.data).toString();
-
-    return dataFormatada;
+    initializeDateFormatting("pt_BR", null);
+    String dataFormatada = DateFormat('dd MMMM y', 'pt_BR').format(lista.data);
+    var from = dataFormatada.split(" ")[1];
+    var to = from.replaceFirst(from[0], from[0].toUpperCase());
+    return dataFormatada.replaceAll(from, to).replaceAll(" ", " de ");
   }
 }
