@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/btnLogin_form.dart';
 import 'package:lista_compras/componentes/inputLogin_form.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
 
 class TelaCadastro extends StatelessWidget {
   final Function(Usuario) atualizarUsuario;
@@ -16,43 +17,21 @@ class TelaCadastro extends StatelessWidget {
 
   _enviar(context) async {
     String nome = nomeController.text;
-    String email = userController.text;
-    String senha = passController.text;
-    String confSenha = confirmPassController.text;
+    String email = userController.text.trim();
+    String senha = passController.text.trim();
+    String confSenha = confirmPassController.text.trim();
+    Validador validador = Validador(context);
 
-    if (nome.isEmpty || email.isEmpty || senha.isEmpty || confSenha.isEmpty) {
+    if (!validador.valida(nome) ||
+        !validador.valida(email) ||
+        !validador.valida(senha) ||
+        !validador.valida(confSenha) ||
+        !validador.validaSenhas(senha, confSenha) ||
+        !validador.validaEmail(email)) {
       return;
     }
 
-    if (senha != confSenha) {
-      return;
-    }
-
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                SizedBox(height: 15),
-                new Text(
-                  "Carregando",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    validador.mostrarCarregamento();
 
     try {
       AuthResult auth = await FirebaseAuth.instance
@@ -72,31 +51,11 @@ class TelaCadastro extends StatelessWidget {
         'valor': false,
       });
       atualizarUsuario(new Usuario(user.uid, nome, email));
-      Navigator.of(context).pop();
+      validador.ocultarCarregamento();
       Navigator.of(context).pop();
     } catch (e) {
-      Navigator.of(context).pop();
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: new Text("Conta Existente"),
-            content: new Text(
-                "Este e-mail ja está cadastrado no nosso sistema. Entre com sua conta para continuar."),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("Entrar"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      return;
+      validador.ocultarCarregamento();
+      validador.validaErro(e.code);
     }
   }
 

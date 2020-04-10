@@ -2,13 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/btnLogin_form.dart';
 import 'package:lista_compras/componentes/inputLogin_form.dart';
-import 'package:lista_compras/modelos/usuario.dart';
-import 'package:lista_compras/telas/tela_cadastro.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
 
 class FormRedefinirSenha extends StatefulWidget {
-  final Function(Usuario) alterarUsuario;
   final String email;
-  FormRedefinirSenha(this.email, this.alterarUsuario);
+  FormRedefinirSenha(this.email);
   @override
   _FormRedefinirSenhaState createState() =>
       _FormRedefinirSenhaState(TextEditingController(text: email));
@@ -20,40 +18,17 @@ class _FormRedefinirSenhaState extends State<FormRedefinirSenha> {
 
   _redefinir(context) async {
     String email = emailController.text;
+    Validador validador = Validador(context);
 
-    if (email.isEmpty) {
+    if (validador.valida(email) || validador.validaEmail(email)) {
       return;
     }
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: new Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                SizedBox(height: 15),
-                new Text(
-                  "Carregando",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    validador.mostrarCarregamento();
 
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      Navigator.of(context).pop();
+      validador.ocultarCarregamento();
       Navigator.of(context).pop();
       showDialog(
         context: context,
@@ -74,37 +49,11 @@ class _FormRedefinirSenhaState extends State<FormRedefinirSenha> {
         },
       );
     } catch (e) {
-      Navigator.of(context).pop();
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: new Text("Conta inexistente"),
-            content: new Text(
-                "Não há uma conta associada a este endereço de e-mail."),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Criar minha conta"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => TelaCadastro(widget.alterarUsuario),
-                    ),
-                  );
-                },
-              ),
-              FlatButton(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      validador.ocultarCarregamento();
+      validador.validaErro(e.code);
+      if (e.code == "ERROR_USER_NOT_FOUND") {
+        Navigator.of(context).pop();
+      }
     }
   }
 

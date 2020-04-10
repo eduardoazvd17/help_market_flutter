@@ -5,6 +5,7 @@ import 'package:lista_compras/componentes/form_redefinir_senha.dart';
 import 'package:lista_compras/componentes/login_form.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
 
 class TelaInicial extends StatelessWidget {
   Usuario usuario;
@@ -19,36 +20,15 @@ class TelaInicial extends StatelessWidget {
     _enviar(context) async {
       String email = usuarioCtrl.text;
       String senha = senhaCtrl.text;
+      Validador validador = Validador(context);
 
-      if (email.isEmpty || senha.isEmpty) {
+      if (validador.valida(email) ||
+          validador.valida(senha) ||
+          validador.validaEmail(email)) {
         return;
       }
 
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Dialog(
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircularProgressIndicator(),
-                  SizedBox(height: 15),
-                  Text(
-                    "Carregando",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
+      validador.mostrarCarregamento();
 
       try {
         AuthResult auth = await FirebaseAuth.instance
@@ -60,27 +40,10 @@ class TelaInicial extends StatelessWidget {
             .get();
         Usuario usuario = Usuario(user.uid, doc['nome'], doc['email']);
         atualizarUsuario(usuario);
-        Navigator.of(context).pop();
+        validador.ocultarCarregamento();
       } catch (e) {
-        Navigator.of(context).pop();
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: new Text("Credenciais Incorretas"),
-              content: new Text("Verifique a digitação e tente novamente."),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-        return;
+        validador.ocultarCarregamento();
+        validador.validaErro(e.code);
       }
     }
 
@@ -89,7 +52,7 @@ class TelaInicial extends StatelessWidget {
       showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (_) => FormRedefinirSenha(email, atualizarUsuario),
+        builder: (_) => FormRedefinirSenha(email),
       );
     }
 
