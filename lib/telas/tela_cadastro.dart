@@ -121,25 +121,25 @@ class TelaCadastro extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             InputLoginForm(
-                              icon: Icon(Icons.person),
+                              icon: Icons.person,
                               controller: nomeController,
                               captalizacao: TextCapitalization.words,
                               hintText: "Nome",
                             ),
                             InputLoginForm(
-                              icon: Icon(Icons.mail),
+                              icon: Icons.mail,
                               controller: userController,
                               hintText: "Email",
                               keyboardType: TextInputType.emailAddress,
                             ),
                             InputLoginForm(
-                              icon: Icon(Icons.lock),
+                              icon: Icons.lock,
                               controller: passController,
                               hintText: "Senha",
                               obscureText: true,
                             ),
                             InputLoginForm(
-                              icon: Icon(Icons.lock),
+                              icon: Icons.lock,
                               controller: confirmPassController,
                               hintText: "Confirmar Senha",
                               obscureText: true,

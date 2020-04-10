@@ -7,7 +7,7 @@ class BtnLoginForm extends StatelessWidget {
 
   BtnLoginForm({
     this.texto = "Entrar",
-    this.cor = (Colors.indigo),
+    this.cor,
     @required this.funcao,
   });
 
@@ -18,8 +18,9 @@ class BtnLoginForm extends StatelessWidget {
       onTap: funcao,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration:
-            BoxDecoration(color: cor, borderRadius: BorderRadius.circular(50)),
+        decoration: BoxDecoration(
+            color: cor == null ? Theme.of(context).primaryColor : cor,
+            borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Text(
             texto,

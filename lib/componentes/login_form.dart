@@ -22,16 +22,15 @@ class LoginForm extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
+            color: Colors.black,
             offset: Offset(0.0, 1.0), //(x,y)
-            blurRadius: 8.0,
           ),
         ],
       ),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.indigo,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -39,13 +38,13 @@ class LoginForm extends StatelessWidget {
           child: Column(
             children: <Widget>[
               InputLoginForm(
-                icon: Icon(Icons.mail),
+                icon: Icons.mail,
                 controller: userController,
                 hintText: "E-mail",
                 keyboardType: TextInputType.emailAddress,
               ),
               InputLoginForm(
-                icon: Icon(Icons.lock),
+                icon: Icons.lock,
                 controller: passController,
                 hintText: "Senha",
                 obscureText: true,

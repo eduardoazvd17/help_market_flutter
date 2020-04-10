@@ -7,6 +7,8 @@ import 'package:lista_compras/telas/tela_inicial.dart';
 import 'package:lista_compras/telas/tela_listas.dart';
 
 class TelaInicio extends StatefulWidget {
+  final Function(Usuario) atualizarConfigs;
+  TelaInicio(this.atualizarConfigs);
   @override
   _TelaInicioState createState() => _TelaInicioState();
 }
@@ -28,14 +30,17 @@ class _TelaInicioState extends State<TelaInicio> {
     setState(() {
       this.usuario = usuario;
     });
+    if (usuario == null) {
+      widget.atualizarConfigs(null);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _telas = [
-      TelaInicial(usuario, _atualizarUsuario),
+      TelaInicial(usuario, _atualizarUsuario, widget.atualizarConfigs),
       TelaListas(usuario),
-      TelaConfiguracoes(usuario),
+      TelaConfiguracoes(usuario, widget.atualizarConfigs),
     ];
 
     return Scaffold(

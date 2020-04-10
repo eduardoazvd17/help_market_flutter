@@ -7,7 +7,8 @@ import 'package:lista_compras/modelos/usuario.dart';
 //collection user.document id. collection  config
 class TelaConfiguracoes extends StatelessWidget {
   final Usuario usuario;
-  TelaConfiguracoes(this.usuario);
+  final Function(Usuario) atualizarConfigs;
+  TelaConfiguracoes(this.usuario, this.atualizarConfigs);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,7 @@ class TelaConfiguracoes extends StatelessWidget {
                   return ItemConfiguracao(
                     usuario: usuario,
                     config: config,
+                    atualizarConfigs: atualizarConfigs,
                   );
                 },
               );

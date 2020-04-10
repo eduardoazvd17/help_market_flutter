@@ -85,7 +85,7 @@ class _FormRedefinirSenhaState extends State<FormRedefinirSenha> {
                 'Insira seu e-mail no campo abaixo e nós enviaremos um e-mail com o link para redefinição de senha.'),
             InputLoginForm(
               controller: emailController,
-              icon: Icon(Icons.email),
+              icon: Icons.email,
               hintText: 'E-mail',
               keyboardType: TextInputType.emailAddress,
             ),

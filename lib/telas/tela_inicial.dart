@@ -10,7 +10,8 @@ import 'package:lista_compras/utilitarios/validador.dart';
 class TelaInicial extends StatelessWidget {
   final Usuario usuario;
   final Function(Usuario) atualizarUsuario;
-  TelaInicial(this.usuario, this.atualizarUsuario);
+  final Function(Usuario) atualizarConfigs;
+  TelaInicial(this.usuario, this.atualizarUsuario, this.atualizarConfigs);
 
   final usuarioCtrl = TextEditingController();
   final senhaCtrl = TextEditingController();
@@ -40,6 +41,7 @@ class TelaInicial extends StatelessWidget {
             .get();
         Usuario usuario = Usuario(user.uid, doc['nome'], doc['email']);
         atualizarUsuario(usuario);
+        atualizarConfigs(usuario);
         validador.ocultarCarregamento();
       } catch (e) {
         validador.ocultarCarregamento();

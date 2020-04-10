@@ -6,8 +6,8 @@ import 'package:lista_compras/modelos/usuario.dart';
 class ItemConfiguracao extends StatelessWidget {
   final Usuario usuario;
   final Config config;
-
-  ItemConfiguracao({this.usuario, this.config});
+  final Function(Usuario) atualizarConfigs;
+  ItemConfiguracao({this.usuario, this.config, this.atualizarConfigs});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class ItemConfiguracao extends StatelessWidget {
                 .updateData({
               'valor': valor,
             });
+            atualizarConfigs(usuario);
           },
           title: Text(config.nome),
         ),

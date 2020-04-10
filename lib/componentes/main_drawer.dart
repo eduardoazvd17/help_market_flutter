@@ -64,7 +64,10 @@ class MainDrawer extends StatelessWidget {
                       ? Column(
                           children: <Widget>[
                             ItemDrawer(
-                              icone: Icon(Icons.exit_to_app),
+                              icone: Icon(
+                                Icons.exit_to_app,
+                                color: Colors.pink,
+                              ),
                               titulo: "Entrar",
                               onTap: () {
                                 Navigator.of(context).pop();
@@ -72,7 +75,10 @@ class MainDrawer extends StatelessWidget {
                             ),
                             Divider(),
                             ItemDrawer(
-                              icone: Icon(Icons.person_add),
+                              icone: Icon(
+                                Icons.person_add,
+                                color: Colors.pink,
+                              ),
                               titulo: "Cadastrar-se",
                               onTap: () {
                                 Navigator.of(context).push(
@@ -89,7 +95,10 @@ class MainDrawer extends StatelessWidget {
                       : Column(
                           children: <Widget>[
                             ItemDrawer(
-                              icone: Icon(Icons.settings),
+                              icone: Icon(
+                                Icons.settings,
+                                color: Colors.indigo,
+                              ),
                               titulo: "Ajustes da Conta",
                               onTap: () {
                                 Navigator.of(context).push(
@@ -104,7 +113,10 @@ class MainDrawer extends StatelessWidget {
                             ),
                             Divider(),
                             ItemDrawer(
-                              icone: Icon(Icons.exit_to_app),
+                              icone: Icon(
+                                Icons.exit_to_app,
+                                color: Colors.red,
+                              ),
                               titulo: "Finalizar Sessão",
                               onTap: () {
                                 FirebaseAuth.instance.signOut();

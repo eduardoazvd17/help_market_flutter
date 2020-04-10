@@ -35,7 +35,10 @@ class ItemLista extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.indigo,
+                ),
                 onPressed: () {
                   showModalBottomSheet(
                     isScrollControlled: true,
