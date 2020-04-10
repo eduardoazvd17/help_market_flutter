@@ -6,10 +6,9 @@ import 'package:lista_compras/telas/tela_ajustes_conta.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
 
 class MainDrawer extends StatelessWidget {
-  Usuario usuario;
-  Function(Usuario) atualizarUsuario;
+  final Usuario usuario;
+  final Function(Usuario) atualizarUsuario;
   MainDrawer(this.usuario, this.atualizarUsuario);
-  //TODO: adicionar funcionalidade aos botoes do drawer.
   @override
   Widget build(BuildContext context) {
     return Drawer(

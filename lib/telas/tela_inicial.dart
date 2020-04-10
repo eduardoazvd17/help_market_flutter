@@ -8,8 +8,8 @@ import 'package:lista_compras/telas/tela_cadastro.dart';
 import 'package:lista_compras/utilitarios/validador.dart';
 
 class TelaInicial extends StatelessWidget {
-  Usuario usuario;
-  Function(Usuario) atualizarUsuario;
+  final Usuario usuario;
+  final Function(Usuario) atualizarUsuario;
   TelaInicial(this.usuario, this.atualizarUsuario);
 
   final usuarioCtrl = TextEditingController();
