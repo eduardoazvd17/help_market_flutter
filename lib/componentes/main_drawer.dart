@@ -26,7 +26,7 @@ class MainDrawer extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Icon(
-                      Icons.people,
+                      Icons.person,
                       size: MediaQuery.of(context).size.height * 0.1,
                     ),
                     Text(

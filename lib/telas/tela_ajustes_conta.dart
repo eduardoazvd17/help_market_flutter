@@ -29,7 +29,34 @@ class TelaAjustesConta extends StatelessWidget {
                     topRight: Radius.circular(40.0),
                   ),
                 ),
-                child: Container(),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(Icons.person,
+                              size: constraints.maxHeight * 0.25),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                  icon: Icon(Icons.edit,
+                                      color: Theme.of(context).accentColor),
+                                  onPressed: () {}),
+                              SizedBox(width: 20),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {}),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
               ),
             );
           },
