@@ -20,7 +20,7 @@ class _FormRedefinirSenhaState extends State<FormRedefinirSenha> {
     String email = emailController.text;
     Validador validador = Validador(context);
 
-    if (validador.valida(email) || validador.validaEmail(email)) {
+    if (!validador.valida(email) || !validador.validaEmail(email)) {
       return;
     }
 

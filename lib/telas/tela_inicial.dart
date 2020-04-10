@@ -22,9 +22,9 @@ class TelaInicial extends StatelessWidget {
       String senha = senhaCtrl.text;
       Validador validador = Validador(context);
 
-      if (validador.valida(email) ||
-          validador.valida(senha) ||
-          validador.validaEmail(email)) {
+      if (!validador.valida(email) ||
+          !validador.valida(senha) ||
+          !validador.validaEmail(email)) {
         return;
       }
 

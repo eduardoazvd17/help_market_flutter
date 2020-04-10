@@ -5,10 +5,9 @@ class Validador {
   BuildContext context;
   Validador(this.context);
 
-  _dialogo(String titulo, String conteudo) {
+  Widget _dialogo(String titulo, String conteudo) {
     showDialog(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: new Text(titulo),
