@@ -119,9 +119,33 @@ class MainDrawer extends StatelessWidget {
                               ),
                               titulo: "Finalizar Sessão",
                               onTap: () {
-                                FirebaseAuth.instance.signOut();
-                                atualizarUsuario(null);
-                                Navigator.of(context).pop();
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: new Text("Finalizar Sessão"),
+                                      content:
+                                          new Text("Deseja realmente sair?"),
+                                      actions: <Widget>[
+                                        new FlatButton(
+                                          child: new Text("Sim"),
+                                          onPressed: () {
+                                            FirebaseAuth.instance.signOut();
+                                            atualizarUsuario(null);
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        new FlatButton(
+                                          child: new Text("Não"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               },
                             ),
                             Divider(),
