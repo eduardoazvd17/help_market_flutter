@@ -102,8 +102,8 @@ class TelaInicial extends StatelessWidget {
                         ),
                         Text(
                           usuario == null
-                              ? "Seja bem vindo ao app lista de compras\nVocê deve se autenticar para continuar"
-                              : "Seja bem vindo de volta ao app lista de compras",
+                              ? "Seja bem vindo ao app HelpMarket\nVocê deve se autenticar para continuar"
+                              : "Seja bem vindo de volta ao app HelpMarket",
                           textAlign: TextAlign.center,
                           style: TextStyle(),
                         ),
