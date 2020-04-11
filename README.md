@@ -1,6 +1,6 @@
-# lista_compras
+# HelpMarket
 
-A new Flutter project.
+Aplicativo de Lista de Compras.
 
 ## Getting Started
 
