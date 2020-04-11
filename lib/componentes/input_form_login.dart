@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class InputLoginForm extends StatelessWidget {
+class InputFormLogin extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
-  final IconData icon;
-  final bool obscureText;
+  final String hint;
+  final IconData icone;
+  final bool ocultar;
   final TextCapitalization captalizacao;
-  final TextInputType keyboardType;
+  final TextInputType teclado;
 
-  InputLoginForm({
+  InputFormLogin({
     @required this.controller,
-    this.icon,
-    this.hintText = "Default",
-    this.obscureText = false,
+    this.icone,
+    this.hint = "Default",
+    this.ocultar = false,
     this.captalizacao,
-    this.keyboardType = TextInputType.text,
+    this.teclado = TextInputType.text,
   });
 
   @override
@@ -24,17 +24,17 @@ class InputLoginForm extends StatelessWidget {
         top: 16,
       ),
       child: TextField(
-        keyboardType: keyboardType,
+        keyboardType: teclado,
         controller: controller,
-        obscureText: obscureText,
+        obscureText: ocultar,
         textCapitalization:
             captalizacao == null ? TextCapitalization.none : captalizacao,
         decoration: InputDecoration(
           prefixIcon: Icon(
-            icon,
+            icone,
             color: Theme.of(context).iconTheme.color.withAlpha(50),
           ),
-          hintText: hintText,
+          hintText: hint,
           contentPadding: EdgeInsets.only(left: 20),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),

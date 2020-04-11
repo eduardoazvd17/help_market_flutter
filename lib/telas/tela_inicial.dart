@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lista_compras/componentes/form_login.dart';
 import 'package:lista_compras/componentes/form_redefinir_senha.dart';
-import 'package:lista_compras/componentes/login_form.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
 import 'package:lista_compras/utilitarios/validador.dart';
@@ -12,14 +12,14 @@ class TelaInicial extends StatelessWidget {
   final Function(Usuario) atualizarConfigs;
   TelaInicial(this.usuario, this.atualizarUsuario, this.atualizarConfigs);
 
-  final usuarioCtrl = TextEditingController();
-  final senhaCtrl = TextEditingController();
+  final usuarioController = TextEditingController();
+  final senhaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _enviar(context) async {
-      String email = usuarioCtrl.text.trim();
-      String senha = senhaCtrl.text.trim();
+      String email = usuarioController.text.trim();
+      String senha = senhaController.text.trim();
       Validador validador = Validador(context);
 
       if (!validador.valida(email) ||
@@ -45,7 +45,7 @@ class TelaInicial extends StatelessWidget {
     }
 
     _esqueciMinhaSenha(context) {
-      String email = usuarioCtrl.text;
+      String email = usuarioController.text;
       showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -116,9 +116,9 @@ class TelaInicial extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
-                              child: LoginForm(
-                                passController: senhaCtrl,
-                                userController: usuarioCtrl,
+                              child: FormLogin(
+                                usuarioController: usuarioController,
+                                senhaController: senhaController,
                                 onSubmit: () => _enviar(context),
                                 onForgotPass: () => _esqueciMinhaSenha(context),
                               ),

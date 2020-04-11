@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/btnLogin_form.dart';
-import 'package:lista_compras/componentes/inputLogin_form.dart';
+import 'package:lista_compras/componentes/botao_form_login.dart';
+import 'package:lista_compras/componentes/input_form_login.dart';
 
-class LoginForm extends StatelessWidget {
-  final TextEditingController userController;
-  final TextEditingController passController;
+class FormLogin extends StatelessWidget {
+  final TextEditingController usuarioController;
+  final TextEditingController senhaController;
   final Function onSubmit;
   final Function onForgotPass;
 
-  LoginForm({
-    this.userController,
-    this.passController,
+  FormLogin({
+    this.usuarioController,
+    this.senhaController,
     this.onSubmit,
     this.onForgotPass,
   });
@@ -37,17 +37,17 @@ class LoginForm extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: <Widget>[
-              InputLoginForm(
-                icon: Icons.mail,
-                controller: userController,
-                hintText: "E-mail",
-                keyboardType: TextInputType.emailAddress,
+              InputFormLogin(
+                icone: Icons.mail,
+                controller: usuarioController,
+                hint: "E-mail",
+                teclado: TextInputType.emailAddress,
               ),
-              InputLoginForm(
-                icon: Icons.lock,
-                controller: passController,
-                hintText: "Senha",
-                obscureText: true,
+              InputFormLogin(
+                icone: Icons.lock,
+                controller: senhaController,
+                hint: "Senha",
+                ocultar: true,
               ),
               SizedBox(height: 8),
               Row(
@@ -62,7 +62,7 @@ class LoginForm extends StatelessWidget {
                       ),
                     ),
                   ),
-                  BtnLoginForm(
+                  BotaoFormLogin(
                     cor: Theme.of(context).accentColor,
                     funcao: onSubmit,
                   ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-class AjustesBtn extends StatelessWidget {
-  final String texto;
+class BotaoAjustes extends StatelessWidget {
+  final String titulo;
   final IconData icone;
   final Function funcao;
-  AjustesBtn({
+
+  BotaoAjustes({
     @required this.icone,
     @required this.funcao,
-    @required this.texto,
+    @required this.titulo,
   });
+
   @override
   Widget build(BuildContext context) {
     var altura = MediaQuery.of(context).size.height;
@@ -32,7 +34,7 @@ class AjustesBtn extends StatelessWidget {
               width: 8,
             ),
             Text(
-              '$texto',
+              '$titulo',
               style: TextStyle(
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),

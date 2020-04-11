@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/btnLogin_form.dart';
-import 'package:lista_compras/componentes/inputLogin_form.dart';
+import 'package:lista_compras/componentes/botao_form_login.dart';
+import 'package:lista_compras/componentes/input_form_login.dart';
 import 'package:lista_compras/utilitarios/validador.dart';
 
 class FormRedefinirSenha extends StatefulWidget {
@@ -83,17 +83,17 @@ class _FormRedefinirSenhaState extends State<FormRedefinirSenha> {
             ),
             Text(
                 'Insira seu e-mail no campo abaixo e nós enviaremos um e-mail com o link para redefinição de senha.'),
-            InputLoginForm(
+            InputFormLogin(
               controller: emailController,
-              icon: Icons.email,
-              hintText: 'E-mail',
-              keyboardType: TextInputType.emailAddress,
+              icone: Icons.email,
+              hint: 'E-mail',
+              teclado: TextInputType.emailAddress,
             ),
             SizedBox(height: 10),
-            BtnLoginForm(
+            BotaoFormLogin(
               funcao: () => _redefinir(context),
               cor: Theme.of(context).accentColor,
-              texto: 'Redefinir Senha',
+              titulo: 'Redefinir Senha',
             )
           ],
         ),

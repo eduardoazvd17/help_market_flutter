@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/btnLogin_form.dart';
-import 'package:lista_compras/componentes/inputLogin_form.dart';
+import 'package:lista_compras/componentes/botao_form_login.dart';
+import 'package:lista_compras/componentes/input_form_login.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/utilitarios/validador.dart';
 
@@ -11,15 +11,15 @@ class TelaCadastro extends StatelessWidget {
   TelaCadastro(this.atualizarUsuario);
 
   final nomeController = TextEditingController();
-  final userController = TextEditingController();
-  final passController = TextEditingController();
-  final confirmPassController = TextEditingController();
+  final usuarioController = TextEditingController();
+  final senhaController = TextEditingController();
+  final confirmaSenhaController = TextEditingController();
 
   _enviar(context) async {
     String nome = nomeController.text;
-    String email = userController.text.trim();
-    String senha = passController.text.trim();
-    String confSenha = confirmPassController.text.trim();
+    String email = usuarioController.text.trim();
+    String senha = senhaController.text.trim();
+    String confSenha = confirmaSenhaController.text.trim();
     Validador validador = Validador(context);
 
     if (!validador.valida(nome) ||
@@ -122,43 +122,43 @@ class TelaCadastro extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Column(
                           children: <Widget>[
-                            InputLoginForm(
-                              icon: Icons.person,
+                            InputFormLogin(
+                              icone: Icons.person,
                               controller: nomeController,
                               captalizacao: TextCapitalization.words,
-                              hintText: "Nome",
+                              hint: "Nome",
                             ),
-                            InputLoginForm(
-                              icon: Icons.mail,
-                              controller: userController,
-                              hintText: "Email",
-                              keyboardType: TextInputType.emailAddress,
+                            InputFormLogin(
+                              icone: Icons.mail,
+                              controller: usuarioController,
+                              hint: "Email",
+                              teclado: TextInputType.emailAddress,
                             ),
-                            InputLoginForm(
-                              icon: Icons.lock,
-                              controller: passController,
-                              hintText: "Senha",
-                              obscureText: true,
+                            InputFormLogin(
+                              icone: Icons.lock,
+                              controller: senhaController,
+                              hint: "Senha",
+                              ocultar: true,
                             ),
-                            InputLoginForm(
-                              icon: Icons.lock,
-                              controller: confirmPassController,
-                              hintText: "Confirmar Senha",
-                              obscureText: true,
+                            InputFormLogin(
+                              icone: Icons.lock,
+                              controller: confirmaSenhaController,
+                              hint: "Confirmar Senha",
+                              ocultar: true,
                             ),
                             SizedBox(
                               height: constraints.maxHeight * 0.02,
                             ),
-                            BtnLoginForm(
-                              texto: "Cadastrar-se",
+                            BotaoFormLogin(
+                              titulo: "Cadastrar-se",
                               funcao: () => _enviar(context),
                               cor: Theme.of(context).primaryColor,
                             ),
                             SizedBox(
                               height: constraints.maxHeight * 0.02,
                             ),
-                            BtnLoginForm(
-                              texto: "Cancelar",
+                            BotaoFormLogin(
+                              titulo: "Cancelar",
                               cor: Colors.red,
                               funcao: () {
                                 Navigator.of(context).pop();

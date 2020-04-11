@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/ajustes_btn.dart';
+import 'package:lista_compras/componentes/botao_ajustes.dart';
 import 'package:lista_compras/componentes/form_ajustes_conta.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 
@@ -91,8 +91,8 @@ class TelaAjustesConta extends StatelessWidget {
                           ],
                         ),
                       ),
-                      AjustesBtn(
-                        texto: "Alterar Nome",
+                      BotaoAjustes(
+                        titulo: "Alterar Nome",
                         icone: Icons.mail,
                         funcao: () {
                           showModalBottomSheet(
@@ -105,8 +105,8 @@ class TelaAjustesConta extends StatelessWidget {
                           );
                         },
                       ),
-                      AjustesBtn(
-                        texto: "Alterar E-mail",
+                      BotaoAjustes(
+                        titulo: "Alterar E-mail",
                         icone: Icons.mail,
                         funcao: () {
                           showModalBottomSheet(
@@ -119,8 +119,8 @@ class TelaAjustesConta extends StatelessWidget {
                           );
                         },
                       ),
-                      AjustesBtn(
-                        texto: "Alterar Senha",
+                      BotaoAjustes(
+                        titulo: "Alterar Senha",
                         icone: Icons.mail,
                         funcao: () {
                           showModalBottomSheet(

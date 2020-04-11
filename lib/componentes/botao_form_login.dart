@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BtnLoginForm extends StatelessWidget {
-  final String texto;
+class BotaoFormLogin extends StatelessWidget {
+  final String titulo;
   final Color cor;
   final Function funcao;
 
-  BtnLoginForm({
-    this.texto = "Entrar",
+  BotaoFormLogin({
+    this.titulo = "Entrar",
     this.cor,
     @required this.funcao,
   });
@@ -23,7 +23,7 @@ class BtnLoginForm extends StatelessWidget {
             borderRadius: BorderRadius.circular(50)),
         child: Center(
           child: Text(
-            texto,
+            titulo,
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,

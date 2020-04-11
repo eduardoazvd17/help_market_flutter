@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/usuario.dart';
-import 'package:lista_compras/telas/tela_inicio.dart';
+import 'package:lista_compras/telas/tela_navegacao.dart';
 
 class TelaSplash extends StatefulWidget {
   final Function atualizarConfigs;
@@ -24,7 +24,7 @@ class _TelaSplashState extends State<TelaSplash> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (_) => TelaInicio(usuario, widget.atualizarConfigs),
+            builder: (_) => TelaNavegacao(usuario, widget.atualizarConfigs),
           ),
         );
       });

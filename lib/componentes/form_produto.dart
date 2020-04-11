@@ -21,12 +21,12 @@ class FormProduto extends StatefulWidget {
 }
 
 class _FormProdutoState extends State<FormProduto> {
-  TextEditingController nomeController;
+  TextEditingController produtoController;
   int quantidade;
-  _FormProdutoState(this.nomeController, this.quantidade);
+  _FormProdutoState(this.produtoController, this.quantidade);
 
   _enviar() {
-    String nome = nomeController.text;
+    String nome = produtoController.text;
     if (this.widget.produto == null) {
       if (nome.isEmpty) {
         return;
@@ -88,7 +88,7 @@ class _FormProdutoState extends State<FormProduto> {
               decoration: InputDecoration(
                 hintText: 'Nome do Produto',
               ),
-              controller: nomeController,
+              controller: produtoController,
               textCapitalization: TextCapitalization.sentences,
             ),
             Row(

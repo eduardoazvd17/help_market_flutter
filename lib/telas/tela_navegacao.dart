@@ -6,18 +6,18 @@ import 'package:lista_compras/telas/tela_configuracoes.dart';
 import 'package:lista_compras/telas/tela_inicial.dart';
 import 'package:lista_compras/telas/tela_listas.dart';
 
-class TelaInicio extends StatefulWidget {
+class TelaNavegacao extends StatefulWidget {
   final Usuario usuario;
   final Function(Usuario) atualizarConfigs;
-  TelaInicio(this.usuario, this.atualizarConfigs);
+  TelaNavegacao(this.usuario, this.atualizarConfigs);
   @override
-  _TelaInicioState createState() => _TelaInicioState(usuario);
+  _TelaNavegacaoState createState() => _TelaNavegacaoState(usuario);
 }
 
-class _TelaInicioState extends State<TelaInicio> {
+class _TelaNavegacaoState extends State<TelaNavegacao> {
   Usuario usuario;
   int _selectedIndex = 0;
-  _TelaInicioState(this.usuario);
+  _TelaNavegacaoState(this.usuario);
 
   void _onItemTapped(int index) {
     if (usuario == null) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lista_compras/componentes/btnLogin_form.dart';
-import 'package:lista_compras/componentes/inputLogin_form.dart';
+import 'package:lista_compras/componentes/botao_form_login.dart';
+import 'package:lista_compras/componentes/input_form_login.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 
 class FormAjustesConta extends StatelessWidget {
@@ -97,35 +97,35 @@ class FormAjustesConta extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10),
               child: Text(conteudo[opcao]['subtitulo']),
             ),
-            InputLoginForm(
-              obscureText: conteudo[opcao]['ocultar'],
+            InputFormLogin(
+              ocultar: conteudo[opcao]['ocultar'],
               controller: dadosController,
-              icon: conteudo[opcao]['icone'],
-              hintText: conteudo[opcao]['hint'],
-              keyboardType: conteudo[opcao]['teclado'],
+              icone: conteudo[opcao]['icone'],
+              hint: conteudo[opcao]['hint'],
+              teclado: conteudo[opcao]['teclado'],
               captalizacao: conteudo[opcao]['captalizacao'],
             ),
             !(conteudo[opcao]['hintConfirmacao'] == null)
                 ? Column(
                     children: <Widget>[
-                      InputLoginForm(
-                        obscureText: conteudo[opcao]['ocultar'],
+                      InputFormLogin(
+                        ocultar: conteudo[opcao]['ocultar'],
                         controller: confirmacaoDadosController,
-                        icon: conteudo[opcao]['icone'],
-                        hintText: conteudo[opcao]['hintConfirmacao'],
-                        keyboardType: conteudo[opcao]['teclado'],
+                        icone: conteudo[opcao]['icone'],
+                        hint: conteudo[opcao]['hintConfirmacao'],
+                        teclado: conteudo[opcao]['teclado'],
                         captalizacao: conteudo[opcao]['captalizacao'],
                       ),
                     ],
                   )
                 : Container(),
             SizedBox(height: 16),
-            BtnLoginForm(
+            BotaoFormLogin(
               funcao: () {
                 dadosController.clear();
                 confirmacaoDadosController.clear();
               },
-              texto: 'Salvar',
+              titulo: 'Salvar',
             )
           ],
         ),
