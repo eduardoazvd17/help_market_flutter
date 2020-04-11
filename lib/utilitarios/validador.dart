@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/usuario.dart';
-import 'package:lista_compras/telas/tela_inicio.dart';
 
 class Validador {
   BuildContext context;
