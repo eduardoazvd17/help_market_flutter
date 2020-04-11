@@ -59,7 +59,7 @@ class TelaAjustesConta extends StatelessWidget {
                                 children: <Widget>[
                                   ClipOval(
                                     child: Container(
-                                      height: altura * 0.25,
+                                      height: largura * 0.4,
                                       width: largura * 0.4,
                                       color: Colors.green,
                                       child: Icon(
@@ -76,13 +76,17 @@ class TelaAjustesConta extends StatelessWidget {
                                           icon: Icon(Icons.edit,
                                               color: Theme.of(context)
                                                   .accentColor),
-                                          onPressed: () {}),
+                                          onPressed: () {
+                                            //Editar foto
+                                          }),
                                       IconButton(
                                         icon: Icon(
                                           Icons.close,
                                           color: Colors.red,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          //Remover foto
+                                        },
                                       ),
                                     ],
                                   ),
