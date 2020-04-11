@@ -8,8 +8,8 @@ class TelaAjustesConta extends StatelessWidget {
   final Function(Usuario) atualizarUsuario;
   TelaAjustesConta(this.usuario, this.atualizarUsuario);
 
-  var dadosController = TextEditingController();
-  var confirmacaoDadosController = TextEditingController();
+  final dadosController = TextEditingController();
+  final confirmacaoDadosController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
