@@ -40,6 +40,9 @@ class TelaCadastro extends StatelessWidget {
       UserUpdateInfo update = new UserUpdateInfo();
       update.displayName = nome;
       user.updateProfile(update);
+      Firestore.instance.collection('usuarios').document(user.uid).setData({
+        'isAtivo': false,
+      });
       Firestore.instance
           .collection('usuarios')
           .document(user.uid)

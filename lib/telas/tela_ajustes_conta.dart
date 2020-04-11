@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lista_compras/componentes/ajustes_btn.dart';
-import 'package:lista_compras/componentes/form_modificar_ajustes.dart';
+import 'package:lista_compras/componentes/form_ajustes_conta.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 
 class TelaAjustesConta extends StatelessWidget {
@@ -92,54 +92,44 @@ class TelaAjustesConta extends StatelessWidget {
                         ),
                       ),
                       AjustesBtn(
-                        texto: "Modificar Nome",
-                        icone: Icons.person,
-                        funcao: () {
-                          print("teste");
-                          alterarDados(
-                            false,
-                            context,
-                            "Modificar nome",
-                            "Se deseja modificar seu nome digite-o abaixo:",
-                            "Nome",
-                            "Modificar nome",
-                            Icons.person,
-                          );
-                        },
-                      ),
-                      AjustesBtn(
-                        texto: "Modificar Senha",
-                        icone: Icons.lock,
-                        funcao: () {
-                          print("teste");
-                          alterarDados(
-                            true,
-                            context,
-                            "Modificar Senha",
-                            "Se deseja modificar seu Senha digite-o abaixo:",
-                            "Senha",
-                            "Modificar Senha",
-                            Icons.lock,
-                            "Confirmar Senha",
-                            true,
-                          );
-                        },
-                      ),
-                      AjustesBtn(
-                        texto: "Modificar Email",
+                        texto: "Alterar Nome",
                         icone: Icons.mail,
                         funcao: () {
-                          print("teste");
-                          alterarDados(
-                            true,
-                            context,
-                            "Modificar Email",
-                            "Se deseja modificar seu email digite-o abaixo:",
-                            "Email",
-                            "Modificar Email",
-                            Icons.mail,
-                            "Confirmar email",
-                            true,
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (_) => FormAjustesConta(
+                              usuario: usuario,
+                              opcao: 0,
+                            ),
+                          );
+                        },
+                      ),
+                      AjustesBtn(
+                        texto: "Alterar E-mail",
+                        icone: Icons.mail,
+                        funcao: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (_) => FormAjustesConta(
+                              usuario: usuario,
+                              opcao: 1,
+                            ),
+                          );
+                        },
+                      ),
+                      AjustesBtn(
+                        texto: "Alterar Senha",
+                        icone: Icons.mail,
+                        funcao: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (_) => FormAjustesConta(
+                              usuario: usuario,
+                              opcao: 2,
+                            ),
                           );
                         },
                       ),
@@ -150,34 +140,6 @@ class TelaAjustesConta extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-
-  alterarDados(
-    ok,
-    context,
-    titulo,
-    corpo,
-    hintCampoTexto,
-    textoBtn,
-    icone, [
-    hintCampoTexto2 = "",
-    dif = false,
-  ]) {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (_) => FormModificarAjustes(
-        titulo: titulo,
-        hintCampoTexto2: hintCampoTexto2,
-        dif: dif,
-        corpo: corpo,
-        hintCampoTexto: hintCampoTexto,
-        textoBtn: textoBtn,
-        icone: icone,
-        dadosController: dadosController,
-        confirmacaoDadosController: ok ? confirmacaoDadosController : null,
       ),
     );
   }

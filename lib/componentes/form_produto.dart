@@ -138,7 +138,7 @@ class _FormProdutoState extends State<FormProduto> {
                     this.widget.produto == null ? 'Enviar' : 'Salvar',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   onPressed: _enviar,

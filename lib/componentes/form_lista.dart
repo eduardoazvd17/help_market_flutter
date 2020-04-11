@@ -86,7 +86,7 @@ class _FormListaState extends State<FormLista> {
                     this.widget.lista == null ? 'Enviar' : 'Salvar',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   onPressed: _enviar,
