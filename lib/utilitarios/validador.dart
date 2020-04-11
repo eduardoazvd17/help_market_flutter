@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/telas/tela_inicio.dart';
 
 class Validador {
   BuildContext context;
-  Validador(this.context);
+  Function(Usuario) atualizarUsuario;
+  Validador(this.context, {this.atualizarUsuario});
 
   Widget _dialogo(String titulo, String conteudo) {
     showDialog(
@@ -15,6 +19,35 @@ class Validador {
           actions: <Widget>[
             new FlatButton(
               child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _dialogoSeguranca(String titulo, String conteudo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(titulo),
+          content: new Text(conteudo),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Entrar Novamente"),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                atualizarUsuario(null);
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Cancelar"),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -79,6 +112,17 @@ class Validador {
     return true;
   }
 
+  bool validaEmails(String email, String confirmacao) {
+    if (email != confirmacao) {
+      _dialogo(
+        "E-mails Diferentes",
+        "Os campos e-mail e confirmação de e-mail devem ser iguais.",
+      );
+      return false;
+    }
+    return true;
+  }
+
   bool validaEmail(String email) {
     if (!email.contains(RegExp('@.'))) {
       _dialogo(
@@ -112,7 +156,7 @@ class Validador {
         {
           _dialogo(
             "Conta Inexistente",
-            "Este e-mail não está cadastrado no nosso sistema. Efetue o cadastro para continuar.",
+            "Este e-mail não está cadastrado no nosso sistema.",
           );
         }
         break;
@@ -128,7 +172,15 @@ class Validador {
         {
           _dialogo(
             "Conta Existente",
-            "Este e-mail ja está cadastrado no nosso sistema. Entre com sua conta para continuar.",
+            "Este e-mail ja está cadastrado no nosso sistema.",
+          );
+        }
+        break;
+      case 'ERROR_REQUIRES_RECENT_LOGIN':
+        {
+          _dialogoSeguranca(
+            "Aviso de Segurança",
+            "Você está autenticado a muito tempo. Para alterar informações como e-mail e senha, você deve se autenticar novamente.",
           );
         }
         break;

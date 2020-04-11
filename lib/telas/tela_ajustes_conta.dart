@@ -8,13 +8,20 @@ class TelaAjustesConta extends StatelessWidget {
   final Function(Usuario) atualizarUsuario;
   TelaAjustesConta(this.usuario, this.atualizarUsuario);
 
-  final dadosController = TextEditingController();
-  final confirmacaoDadosController = TextEditingController();
+  _abrirModal(context, int opcao) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (_) => FormAjustesConta(
+        usuario: usuario,
+        atualizarUsuario: atualizarUsuario,
+        opcao: opcao,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    var altura = MediaQuery.of(context).size.height;
-    var largura = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -37,34 +44,32 @@ class TelaAjustesConta extends StatelessWidget {
                 ),
               ),
               child: LayoutBuilder(builder: (context, constraints) {
+                var altura = constraints.maxHeight;
+                var largura = constraints.maxWidth;
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: altura * 0.04,
-                          left: largura * 0.22,
-                          right: largura * 0.22,
-                        ),
-                        padding: EdgeInsets.only(top: altura * 0.04),
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.25),
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 35, bottom: 20),
                         child: Column(
                           children: <Widget>[
                             Container(
-                              child: Column(
+                              child: Stack(
+                                alignment: Alignment.bottomCenter,
                                 children: <Widget>[
-                                  Icon(Icons.person,
-                                      size: constraints.maxHeight * 0.25),
+                                  ClipOval(
+                                    child: Container(
+                                      height: altura * 0.25,
+                                      width: largura * 0.4,
+                                      color: Colors.green,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: altura * 0.2,
+                                      ),
+                                    ),
+                                  ),
                                   Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       IconButton(
@@ -72,7 +77,6 @@ class TelaAjustesConta extends StatelessWidget {
                                               color: Theme.of(context)
                                                   .accentColor),
                                           onPressed: () {}),
-                                      SizedBox(width: 20),
                                       IconButton(
                                         icon: Icon(
                                           Icons.close,
@@ -81,9 +85,6 @@ class TelaAjustesConta extends StatelessWidget {
                                         onPressed: () {},
                                       ),
                                     ],
-                                  ),
-                                  SizedBox(
-                                    height: 15,
                                   ),
                                 ],
                               ),
@@ -94,44 +95,17 @@ class TelaAjustesConta extends StatelessWidget {
                       AjustesBtn(
                         texto: "Alterar Nome",
                         icone: Icons.mail,
-                        funcao: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (_) => FormAjustesConta(
-                              usuario: usuario,
-                              opcao: 0,
-                            ),
-                          );
-                        },
+                        funcao: () => _abrirModal(context, 0),
                       ),
                       AjustesBtn(
                         texto: "Alterar E-mail",
                         icone: Icons.mail,
-                        funcao: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (_) => FormAjustesConta(
-                              usuario: usuario,
-                              opcao: 1,
-                            ),
-                          );
-                        },
+                        funcao: () => _abrirModal(context, 1),
                       ),
                       AjustesBtn(
                         texto: "Alterar Senha",
                         icone: Icons.mail,
-                        funcao: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (_) => FormAjustesConta(
-                              usuario: usuario,
-                              opcao: 2,
-                            ),
-                          );
-                        },
+                        funcao: () => _abrirModal(context, 2),
                       ),
                     ],
                   ),

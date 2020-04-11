@@ -1,13 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lista_compras/componentes/btnLogin_form.dart';
 import 'package:lista_compras/componentes/inputLogin_form.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
 
-class FormAjustesConta extends StatelessWidget {
+class FormAjustesConta extends StatefulWidget {
   final Usuario usuario;
+  final Function(Usuario) atualizarUsuario;
   final int opcao;
-  final dadosController = TextEditingController();
-  final confirmacaoDadosController = TextEditingController();
+
+  FormAjustesConta({
+    @required this.usuario,
+    @required this.atualizarUsuario,
+    @required this.opcao,
+  });
+
+  @override
+  _FormAjustesContaState createState() => opcao == 0
+      ? _FormAjustesContaState(
+          dadosController: TextEditingController(text: usuario.nome),
+        )
+      : _FormAjustesContaState(
+          dadosController: TextEditingController(),
+          confirmacaoDadosController: TextEditingController(),
+        );
+}
+
+class _FormAjustesContaState extends State<FormAjustesConta> {
+  final TextEditingController dadosController;
+  final TextEditingController confirmacaoDadosController;
+  _FormAjustesContaState(
+      {this.dadosController, this.confirmacaoDadosController});
   final List<Map<String, dynamic>> conteudo = [
     {
       'titulo': 'Alterar Nome',
@@ -21,9 +46,9 @@ class FormAjustesConta extends StatelessWidget {
     {
       'titulo': 'Alterar E-mail',
       'subtitulo': 'Para alterar seu e-mail preencha o formulário abaixo:',
-      'hint': 'E-mail',
-      'hintConfirmacao': 'Confirmar E-mail',
-      'icone': Icons.person,
+      'hint': 'Novo E-mail',
+      'hintConfirmacao': 'Confirmação de E-mail',
+      'icone': Icons.mail,
       'teclado': TextInputType.emailAddress,
       'captalizacao': TextCapitalization.none,
       'ocultar': false,
@@ -31,37 +56,89 @@ class FormAjustesConta extends StatelessWidget {
     {
       'titulo': 'Alterar Senha',
       'subtitulo': 'Para alterar sua senha preencha o formulário abaixo:',
-      'hint': 'Senha',
-      'hintConfirmacao': 'Confirmar Senha',
-      'icone': Icons.person,
+      'hint': 'Nova Senha',
+      'hintConfirmacao': 'Confirmação de Senha',
+      'icone': Icons.lock,
       'teclado': TextInputType.text,
       'captalizacao': TextCapitalization.none,
       'ocultar': true,
     },
   ];
 
-  FormAjustesConta({
-    @required this.usuario,
-    @required this.opcao,
-  });
-
-  _salvar(context) {
-    switch (opcao) {
+  _salvar(context) async {
+    var user = await FirebaseAuth.instance.currentUser();
+    var validador =
+        Validador(context, atualizarUsuario: widget.atualizarUsuario);
+    switch (widget.opcao) {
       case 0:
         {
           String nome = dadosController.text;
+
+          if (!validador.valida(nome)) {
+            return;
+          }
+
+          validador.mostrarCarregamento();
+
+          try {
+            var update = UserUpdateInfo();
+            update.displayName = nome;
+            await user.updateProfile(update);
+            validador.ocultarCarregamento();
+            widget.atualizarUsuario(Usuario(user.uid, nome, user.email));
+            Navigator.of(context).pop();
+          } catch (e) {
+            validador.validaErro(e.code);
+          }
         }
         break;
       case 1:
         {
           String email = dadosController.text.trim();
-          String confirmacaoDadosController = dadosController.text.trim();
+          String confirmacaoEmail = confirmacaoDadosController.text.trim();
+
+          if (!validador.valida(email) ||
+              !validador.valida(confirmacaoEmail) ||
+              !validador.validaEmail(email) ||
+              !validador.validaEmail(confirmacaoEmail) ||
+              !validador.validaEmails(email, confirmacaoEmail)) {
+            return;
+          }
+
+          validador.mostrarCarregamento();
+
+          try {
+            await user.updateEmail(email);
+            validador.ocultarCarregamento();
+            widget.atualizarUsuario(Usuario(user.uid, user.displayName, email));
+            Navigator.of(context).pop();
+          } catch (e) {
+            validador.ocultarCarregamento();
+            validador.validaErro(e.code);
+          }
         }
         break;
       case 2:
         {
           String senha = dadosController.text.trim();
           String confirmacaoSenha = confirmacaoDadosController.text.trim();
+
+          if (!validador.valida(senha) ||
+              !validador.valida(confirmacaoSenha) ||
+              !validador.validaSenhas(senha, confirmacaoSenha)) {
+            return;
+          }
+
+          validador.mostrarCarregamento();
+
+          try {
+            await user.updatePassword(senha);
+            validador.ocultarCarregamento();
+            Navigator.of(context).pop();
+          } catch (e) {
+            validador.ocultarCarregamento();
+            validador.validaErro(e.code);
+          }
         }
         break;
       default:
@@ -87,7 +164,7 @@ class FormAjustesConta extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              conteudo[opcao]['titulo'],
+              conteudo[widget.opcao]['titulo'],
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -95,36 +172,34 @@ class FormAjustesConta extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Text(conteudo[opcao]['subtitulo']),
+              child: Text(
+                  '${widget.opcao == 1 ? 'Seu e-mail atual é: ' + widget.usuario.email + '\n' : ''}${conteudo[widget.opcao]['subtitulo']}'),
             ),
             InputLoginForm(
-              obscureText: conteudo[opcao]['ocultar'],
+              obscureText: conteudo[widget.opcao]['ocultar'],
               controller: dadosController,
-              icon: conteudo[opcao]['icone'],
-              hintText: conteudo[opcao]['hint'],
-              keyboardType: conteudo[opcao]['teclado'],
-              captalizacao: conteudo[opcao]['captalizacao'],
+              icon: conteudo[widget.opcao]['icone'],
+              hintText: conteudo[widget.opcao]['hint'],
+              keyboardType: conteudo[widget.opcao]['teclado'],
+              captalizacao: conteudo[widget.opcao]['captalizacao'],
             ),
-            !(conteudo[opcao]['hintConfirmacao'] == null)
+            !(conteudo[widget.opcao]['hintConfirmacao'] == null)
                 ? Column(
                     children: <Widget>[
                       InputLoginForm(
-                        obscureText: conteudo[opcao]['ocultar'],
+                        obscureText: conteudo[widget.opcao]['ocultar'],
                         controller: confirmacaoDadosController,
-                        icon: conteudo[opcao]['icone'],
-                        hintText: conteudo[opcao]['hintConfirmacao'],
-                        keyboardType: conteudo[opcao]['teclado'],
-                        captalizacao: conteudo[opcao]['captalizacao'],
+                        icon: conteudo[widget.opcao]['icone'],
+                        hintText: conteudo[widget.opcao]['hintConfirmacao'],
+                        keyboardType: conteudo[widget.opcao]['teclado'],
+                        captalizacao: conteudo[widget.opcao]['captalizacao'],
                       ),
                     ],
                   )
                 : Container(),
             SizedBox(height: 16),
             BtnLoginForm(
-              funcao: () {
-                dadosController.clear();
-                confirmacaoDadosController.clear();
-              },
+              funcao: () => _salvar(context),
               texto: 'Salvar',
             )
           ],
