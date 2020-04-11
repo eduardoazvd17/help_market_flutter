@@ -86,8 +86,10 @@ class _FormAjustesContaState extends State<FormAjustesConta> {
             update.displayName = nome;
             await user.updateProfile(update);
             validador.ocultarCarregamento();
-            widget.atualizarUsuario(Usuario(user.uid, nome, user.email));
             Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            widget.atualizarUsuario(Usuario(user.uid, nome, user.email));
+            validador.mostrarAviso("Seu nome foi alterado com sucesso!");
           } catch (e) {
             validador.validaErro(e.code);
           }
@@ -111,8 +113,10 @@ class _FormAjustesContaState extends State<FormAjustesConta> {
           try {
             await user.updateEmail(email);
             validador.ocultarCarregamento();
-            widget.atualizarUsuario(Usuario(user.uid, user.displayName, email));
             Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            widget.atualizarUsuario(Usuario(user.uid, user.displayName, email));
+            validador.mostrarAviso("Seu e-mail foi alterado com sucesso!");
           } catch (e) {
             validador.ocultarCarregamento();
             validador.validaErro(e.code);
@@ -136,6 +140,8 @@ class _FormAjustesContaState extends State<FormAjustesConta> {
             await user.updatePassword(senha);
             validador.ocultarCarregamento();
             Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            validador.mostrarAviso("Sua senha foi alterada com sucesso!");
           } catch (e) {
             validador.ocultarCarregamento();
             validador.validaErro(e.code);

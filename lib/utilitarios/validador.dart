@@ -2,11 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+import 'package:toast/toast.dart';
 
 class Validador {
   BuildContext context;
   Function(Usuario) atualizarUsuario;
   Validador(this.context, {this.atualizarUsuario});
+
+  Widget _aviso(String conteudo) {
+    Toast.show(conteudo, context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+  }
 
   Widget _dialogo(String titulo, String conteudo) {
     showDialog(
@@ -55,6 +61,10 @@ class Validador {
         );
       },
     );
+  }
+
+  mostrarAviso(String mensagem) {
+    _aviso(mensagem);
   }
 
   mostrarCarregamento() {

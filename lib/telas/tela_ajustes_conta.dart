@@ -94,7 +94,7 @@ class TelaAjustesConta extends StatelessWidget {
                       ),
                       BotaoAjustes(
                         titulo: "Alterar Nome",
-                        icone: Icons.mail,
+                        icone: Icons.person,
                         funcao: () => _abrirModal(context, 0),
                       ),
                       BotaoAjustes(
@@ -104,7 +104,7 @@ class TelaAjustesConta extends StatelessWidget {
                       ),
                       BotaoAjustes(
                         titulo: "Alterar Senha",
-                        icone: Icons.mail,
+                        icone: Icons.lock,
                         funcao: () => _abrirModal(context, 2),
                       ),
                     ],
