@@ -44,13 +44,15 @@ class _TelaAjustesContaState extends State<TelaAjustesConta> {
       } else {
         foto = await ImagePicker.pickImage(source: ImageSource.gallery);
       }
-      if (foto == null) {
-        return;
-      }
     } catch (e) {
       Validador(context)
           .mostrarAviso("Você precisa permitir antes de utilizar esta função.");
     }
+
+    if (foto == null) {
+      return;
+    }
+
     _uploadFoto(context, foto);
   }
 
