@@ -28,6 +28,8 @@ class MainDrawer extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         ClipOval(
                           child: usuario == null
@@ -57,7 +59,7 @@ class MainDrawer extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                         ),
-                        SizedBox(height: largura * 0.05),
+                        SizedBox(height: 10),
                         Text(
                           usuario == null
                               ? "Ainda não possui uma conta?"
