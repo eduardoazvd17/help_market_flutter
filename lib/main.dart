@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lista_compras/modelos/config.dart';
@@ -53,7 +52,8 @@ class _ListaComprasState extends State<ListaCompras> {
   Widget build(BuildContext context) {
     ThemeData light = ThemeData(
       primarySwatch: Colors.indigo,
-      accentColor: Colors.pink,
+      accentColor: Colors.indigo,
+      iconTheme: IconThemeData(color: Colors.black),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Theme.of(context).scaffoldBackgroundColor,
       ),
@@ -62,7 +62,7 @@ class _ListaComprasState extends State<ListaCompras> {
     ThemeData dark = ThemeData(
       primarySwatch: Colors.pink,
       dividerColor: Colors.white12,
-      accentColor: Colors.indigo,
+      accentColor: Colors.pink,
       backgroundColor: Colors.grey[900],
       scaffoldBackgroundColor: Colors.grey[900],
       bottomAppBarColor: Colors.grey[900],

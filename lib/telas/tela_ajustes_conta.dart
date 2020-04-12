@@ -1,31 +1,97 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lista_compras/componentes/botao_ajustes.dart';
 import 'package:lista_compras/componentes/form_ajustes_conta.dart';
 import 'package:lista_compras/modelos/usuario.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
+import 'package:image/image.Dart' as Im;
+import 'Dart:math' as Math;
+import 'package:path_provider/path_provider.dart';
 
-class TelaAjustesConta extends StatelessWidget {
+class TelaAjustesConta extends StatefulWidget {
   final Usuario usuario;
   final Function(Usuario) atualizarUsuario;
   TelaAjustesConta(this.usuario, this.atualizarUsuario);
+
+  @override
+  _TelaAjustesContaState createState() => _TelaAjustesContaState();
+}
+
+class _TelaAjustesContaState extends State<TelaAjustesConta> {
+  String fotoUrl;
 
   _abrirModal(context, int opcao) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (_) => FormAjustesConta(
-        usuario: usuario,
-        atualizarUsuario: atualizarUsuario,
+        usuario: widget.usuario,
+        atualizarUsuario: widget.atualizarUsuario,
         opcao: opcao,
       ),
     );
   }
 
+  Future _getFoto(context, opc) async {
+    var foto;
+    try {
+      if (opc) {
+        foto = await ImagePicker.pickImage(source: ImageSource.camera);
+      } else {
+        foto = await ImagePicker.pickImage(source: ImageSource.gallery);
+      }
+      if (foto == null) {
+        return;
+      }
+    } catch (e) {
+      Validador(context)
+          .mostrarAviso("Você precisa permitir antes de utilizar esta função.");
+    }
+    _uploadFoto(context, foto);
+  }
+
+  Future _uploadFoto(context, foto) async {
+    var validador = Validador(context);
+    validador.mostrarCarregamento();
+    try {
+      var storageReference =
+          FirebaseStorage().ref().child("/fotosPerfil/" + widget.usuario.id);
+      var uploadTask = storageReference.putFile(foto);
+      await uploadTask.onComplete;
+      var usuario = await FirebaseAuth.instance.currentUser();
+      var update = UserUpdateInfo();
+      update.photoUrl = await storageReference.getDownloadURL();
+      usuario.updateProfile(update);
+      setState(() {
+        fotoUrl = update.photoUrl;
+      });
+      validador.ocultarCarregamento();
+      Validador(context).mostrarAviso("Sua foto de perfil foi alterada.");
+      widget.usuario.fotoUrl = update.photoUrl;
+      widget.atualizarUsuario(widget.usuario);
+    } catch (e) {
+      validador.ocultarCarregamento();
+      validador.mostrarAviso(
+          "Não foi possivel enviar a foto. Tente nvoamente mais tarde.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((user) {
+      setState(() {
+        fotoUrl = user.photoUrl;
+      });
+    });
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text(usuario.nome),
+        title: Text(widget.usuario.nome),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -58,35 +124,45 @@ class TelaAjustesConta extends StatelessWidget {
                                 alignment: Alignment.bottomCenter,
                                 children: <Widget>[
                                   ClipOval(
-                                    child: Container(
-                                      height: largura * 0.4,
-                                      width: largura * 0.4,
-                                      color: Colors.green,
-                                      child: Icon(
-                                        Icons.person,
-                                        size: altura * 0.2,
-                                      ),
-                                    ),
+                                    child: fotoUrl == null
+                                        ? Container(
+                                            width: largura * 0.4,
+                                            height: largura * 0.4,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            child: Icon(Icons.person,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                                size: largura * 0.3),
+                                          )
+                                        : Image.network(
+                                            fotoUrl,
+                                            width: largura * 0.4,
+                                            height: largura * 0.4,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       IconButton(
-                                          icon: Icon(Icons.edit,
-                                              color: Theme.of(context)
-                                                  .accentColor),
-                                          onPressed: () {
-                                            //Editar foto
-                                          }),
+                                        icon: Icon(
+                                          Icons.camera_alt,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                        ),
+                                        onPressed: () =>
+                                            _getFoto(context, true),
+                                      ),
                                       IconButton(
                                         icon: Icon(
-                                          Icons.close,
-                                          color: Colors.red,
+                                          Icons.image,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
                                         ),
-                                        onPressed: () {
-                                          //Remover foto
-                                        },
+                                        onPressed: () =>
+                                            _getFoto(context, false),
                                       ),
                                     ],
                                   ),
@@ -111,6 +187,7 @@ class TelaAjustesConta extends StatelessWidget {
                         icone: Icons.lock,
                         funcao: () => _abrirModal(context, 2),
                       ),
+                      SizedBox(height: 20),
                     ],
                   ),
                 );

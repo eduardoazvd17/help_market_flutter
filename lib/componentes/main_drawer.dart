@@ -12,173 +12,203 @@ class MainDrawer extends StatelessWidget {
   MainDrawer(this.usuario, this.atualizarUsuario);
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: <Widget>[
-          Container(
-            color: Theme.of(context).primaryColor,
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: Container(
-              width: double.infinity,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Icon(
-                      Icons.person,
-                      size: MediaQuery.of(context).size.height * 0.1,
+    var largura = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Drawer(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: Theme.of(context).primaryColor,
+                child: Container(
+                  width: double.infinity,
+                  height: 250,
+                  child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    Text(
-                      usuario == null
-                          ? "Ainda não possui uma conta?"
-                          : "${usuario.nome}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        ClipOval(
+                          child: usuario == null
+                              ? Container(
+                                  width: largura * 0.2,
+                                  height: largura * 0.2,
+                                  color: Theme.of(context).primaryColor,
+                                  child: Icon(Icons.person,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      size: largura * 0.2),
+                                )
+                              : usuario.fotoUrl == null
+                                  ? Container(
+                                      width: largura * 0.2,
+                                      height: largura * 0.2,
+                                      color: Theme.of(context).primaryColor,
+                                      child: Icon(Icons.person,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          size: largura * 0.2),
+                                    )
+                                  : Image.network(
+                                      usuario.fotoUrl,
+                                      width: largura * 0.2,
+                                      height: largura * 0.2,
+                                      fit: BoxFit.cover,
+                                    ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          usuario == null
+                              ? "Ainda não possui uma conta?"
+                              : "${usuario.nome}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          usuario == null
+                              ? "Efetue o cadastro no menu abaixo."
+                              : "${usuario.email}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      usuario == null
-                          ? "Efetue o cadastro no menu abaixo."
-                          : "${usuario.email}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
               Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Divider(),
-                  usuario == null
-                      ? Column(
-                          children: <Widget>[
-                            ItemDrawer(
-                              icone: Icon(
-                                Icons.exit_to_app,
-                                color: Colors.pink,
-                              ),
-                              titulo: "Entrar",
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            Divider(),
-                            ItemDrawer(
-                              icone: Icon(
-                                Icons.person_add,
-                                color: Colors.pink,
-                              ),
-                              titulo: "Cadastrar-se",
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        TelaCadastro(atualizarUsuario),
+                  Column(
+                    children: <Widget>[
+                      Divider(),
+                      usuario == null
+                          ? Column(
+                              children: <Widget>[
+                                ItemDrawer(
+                                  icone: Icon(
+                                    Icons.exit_to_app,
+                                    color: Theme.of(context).iconTheme.color,
                                   ),
-                                );
-                              },
-                            ),
-                            Divider(),
-                          ],
-                        )
-                      : Column(
-                          children: <Widget>[
-                            ItemDrawer(
-                              icone: Icon(
-                                Icons.settings,
-                                color: Colors.indigo,
-                              ),
-                              titulo: "Ajustes da Conta",
-                              onTap: () {
-                                FirebaseAuth.instance
-                                    .currentUser()
-                                    .then((user) {
-                                  user.reload();
-                                  if (user.isEmailVerified) {
+                                  titulo: "Entrar",
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                Divider(),
+                                ItemDrawer(
+                                  icone: Icon(
+                                    Icons.person_add,
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                  titulo: "Cadastrar-se",
+                                  onTap: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (_) => TelaAjustesConta(
-                                          usuario,
-                                          atualizarUsuario,
-                                        ),
+                                        builder: (_) =>
+                                            TelaCadastro(atualizarUsuario),
                                       ),
                                     );
-                                  } else {
-                                    Validador(context).dialogoVerficarEmail(
-                                        "Seu e-mail ainda não foi verificado, para verificar clique no link que lhe enviamos por e-mail.");
-                                  }
-                                });
-                              },
-                            ),
-                            Divider(),
-                            ItemDrawer(
-                              icone: Icon(
-                                Icons.exit_to_app,
-                                color: Colors.red,
-                              ),
-                              titulo: "Finalizar Sessão",
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: new Text("Finalizar Sessão"),
-                                      content:
-                                          new Text("Deseja realmente sair?"),
-                                      actions: <Widget>[
-                                        new FlatButton(
-                                          child: new Text("Sim"),
-                                          onPressed: () {
-                                            FirebaseAuth.instance.signOut();
-                                            atualizarUsuario(null);
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        new FlatButton(
-                                          child: new Text("Não"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
+                                  },
+                                ),
+                                Divider(),
+                              ],
+                            )
+                          : Column(
+                              children: <Widget>[
+                                ItemDrawer(
+                                  icone: Icon(
+                                    Icons.settings,
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                  titulo: "Ajustes da Conta",
+                                  onTap: () {
+                                    FirebaseAuth.instance
+                                        .currentUser()
+                                        .then((user) {
+                                      user.reload();
+                                      if (user.isEmailVerified) {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (_) => TelaAjustesConta(
+                                              usuario,
+                                              atualizarUsuario,
+                                            ),
+                                          ),
+                                        );
+                                      } else {
+                                        Validador(context).dialogoVerficarEmail(
+                                            "Seu e-mail ainda não foi verificado, para verificar clique no link que lhe enviamos por e-mail.");
+                                      }
+                                    });
+                                  },
+                                ),
+                                Divider(),
+                                ItemDrawer(
+                                  icone: Icon(
+                                    Icons.exit_to_app,
+                                    color: Colors.red,
+                                  ),
+                                  titulo: "Finalizar Sessão",
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: new Text("Finalizar Sessão"),
+                                          content: new Text(
+                                              "Deseja realmente sair?"),
+                                          actions: <Widget>[
+                                            new FlatButton(
+                                              child: new Text("Sim"),
+                                              onPressed: () {
+                                                FirebaseAuth.instance.signOut();
+                                                atualizarUsuario(null);
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            new FlatButton(
+                                              child: new Text("Não"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     );
                                   },
-                                );
-                              },
+                                ),
+                                Divider(),
+                              ],
                             ),
-                            Divider(),
-                          ],
-                        ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      ItemDrawer(
+                        titulo: "Sobre-nós",
+                        onTap: () {},
+                      ),
+                      ItemDrawer(
+                        titulo: "Privacidade",
+                        onTap: () {},
+                      ),
+                    ],
+                  )
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  ItemDrawer(
-                    titulo: "Sobre-nós",
-                    onTap: () {},
-                  ),
-                  ItemDrawer(
-                    titulo: "Privacidade",
-                    onTap: () {},
-                  ),
-                ],
-              )
             ],
           ),
-        ],
+        ),
       ),
     );
   }

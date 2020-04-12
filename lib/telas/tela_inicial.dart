@@ -34,7 +34,8 @@ class TelaInicial extends StatelessWidget {
         AuthResult auth = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: senha);
         FirebaseUser user = auth.user;
-        Usuario usuario = Usuario(user.uid, user.displayName, user.email);
+        Usuario usuario = Usuario(user.uid, user.displayName, user.email,
+            fotoUrl: user.photoUrl == null ? null : user.photoUrl);
         atualizarUsuario(usuario);
         atualizarConfigs(usuario);
         validador.ocultarCarregamento();

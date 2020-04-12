@@ -17,7 +17,8 @@ class _TelaSplashState extends State<TelaSplash> {
     FirebaseAuth.instance.currentUser().then((user) {
       Usuario usuario;
       if (user != null) {
-        usuario = Usuario(user.uid, user.displayName, user.email);
+        usuario = Usuario(user.uid, user.displayName, user.email,
+            fotoUrl: user.photoUrl == null ? null : user.photoUrl);
         widget.atualizarConfigs(usuario);
       }
       Future.delayed(Duration(seconds: 3), () {
