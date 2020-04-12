@@ -40,6 +40,8 @@ class _TelaSplashState extends State<TelaSplash> {
         color: Theme.of(context).primaryColor,
         child: Center(
           child: Container(
+            height: altura * 0.4,
+            width: altura * 0.4,
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(altura),

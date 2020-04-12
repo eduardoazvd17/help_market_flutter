@@ -141,7 +141,7 @@ class TelaInicial extends StatelessWidget {
                             ),
                           ],
                         )
-                      : Container(), //<- Tela de apresentação apos se autenticar.
+                      : Container(),
                 ],
               ),
             ),

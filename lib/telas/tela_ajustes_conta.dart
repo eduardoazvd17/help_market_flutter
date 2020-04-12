@@ -129,7 +129,7 @@ class _TelaAjustesContaState extends State<TelaAjustesConta> {
                                             child: Icon(Icons.person,
                                                 color: Theme.of(context)
                                                     .scaffoldBackgroundColor,
-                                                size: largura * 0.3),
+                                                size: largura * 0.25),
                                           )
                                         : Image.network(
                                             fotoUrl,
@@ -138,29 +138,44 @@ class _TelaAjustesContaState extends State<TelaAjustesConta> {
                                             fit: BoxFit.cover,
                                           ),
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.camera_alt,
-                                          color:
-                                              Theme.of(context).iconTheme.color,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            blurRadius: 25,
+                                            offset: Offset(0, 20),
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.camera_alt,
+                                            color: Theme.of(context)
+                                                .iconTheme
+                                                .color,
+                                          ),
+                                          onPressed: () =>
+                                              _getFoto(context, true),
                                         ),
-                                        onPressed: () =>
-                                            _getFoto(context, true),
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.image,
-                                          color:
-                                              Theme.of(context).iconTheme.color,
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.image,
+                                            color: Theme.of(context)
+                                                .iconTheme
+                                                .color,
+                                          ),
+                                          onPressed: () =>
+                                              _getFoto(context, false),
                                         ),
-                                        onPressed: () =>
-                                            _getFoto(context, false),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
