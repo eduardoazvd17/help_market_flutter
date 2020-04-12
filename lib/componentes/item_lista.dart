@@ -37,7 +37,7 @@ class ItemLista extends StatelessWidget {
               IconButton(
                 icon: Icon(
                   Icons.edit,
-                  color: Colors.indigo,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 onPressed: () {
                   showModalBottomSheet(
