@@ -105,6 +105,7 @@ class MainDrawer extends StatelessWidget {
                                 FirebaseAuth.instance
                                     .currentUser()
                                     .then((user) {
+                                  user.reload();
                                   if (user.isEmailVerified) {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
