@@ -22,7 +22,7 @@ class MainDrawer extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 child: Container(
                   width: double.infinity,
-                  height: 250,
+                  height: largura * 0.4,
                   child: DrawerHeader(
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
@@ -57,7 +57,7 @@ class MainDrawer extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: largura * 0.05),
                         Text(
                           usuario == null
                               ? "Ainda não possui uma conta?"
