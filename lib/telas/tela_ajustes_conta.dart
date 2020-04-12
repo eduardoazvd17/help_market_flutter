@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +6,6 @@ import 'package:lista_compras/componentes/botao_ajustes.dart';
 import 'package:lista_compras/componentes/form_ajustes_conta.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/utilitarios/validador.dart';
-import 'package:image/image.Dart' as Im;
-import 'Dart:math' as Math;
-import 'package:path_provider/path_provider.dart';
 
 class TelaAjustesConta extends StatefulWidget {
   final Usuario usuario;
@@ -112,7 +107,6 @@ class _TelaAjustesContaState extends State<TelaAjustesConta> {
                 ),
               ),
               child: LayoutBuilder(builder: (context, constraints) {
-                var altura = constraints.maxHeight;
                 var largura = constraints.maxWidth;
                 return SingleChildScrollView(
                   child: Column(
