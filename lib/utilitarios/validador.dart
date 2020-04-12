@@ -63,6 +63,37 @@ class Validador {
     );
   }
 
+  Widget dialogoVerficarEmail(String conteudo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("E-mail não Verificado"),
+          content: new Text(conteudo),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Reenviar Verificação"),
+              onPressed: () {
+                FirebaseAuth.instance.currentUser().then((user) {
+                  user.sendEmailVerification();
+                  Navigator.of(context).pop();
+                  mostrarAviso(
+                      "Reenviamos um e-mail com o link de verificação.");
+                });
+              },
+            ),
+            new FlatButton(
+              child: new Text("Cancelar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   mostrarAviso(String mensagem) {
     _aviso(mensagem);
   }

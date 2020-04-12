@@ -4,6 +4,7 @@ import 'package:lista_compras/componentes/item_drawer.dart';
 import 'package:lista_compras/modelos/usuario.dart';
 import 'package:lista_compras/telas/tela_ajustes_conta.dart';
 import 'package:lista_compras/telas/tela_cadastro.dart';
+import 'package:lista_compras/utilitarios/validador.dart';
 
 class MainDrawer extends StatelessWidget {
   final Usuario usuario;
@@ -47,7 +48,7 @@ class MainDrawer extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -101,14 +102,23 @@ class MainDrawer extends StatelessWidget {
                               ),
                               titulo: "Ajustes da Conta",
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => TelaAjustesConta(
-                                      usuario,
-                                      atualizarUsuario,
-                                    ),
-                                  ),
-                                );
+                                FirebaseAuth.instance
+                                    .currentUser()
+                                    .then((user) {
+                                  if (user.isEmailVerified) {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => TelaAjustesConta(
+                                          usuario,
+                                          atualizarUsuario,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    Validador(context).dialogoVerficarEmail(
+                                        "Seu e-mail ainda não foi verificado, para verificar clique no link que lhe enviamos por e-mail.");
+                                  }
+                                });
                               },
                             ),
                             Divider(),
